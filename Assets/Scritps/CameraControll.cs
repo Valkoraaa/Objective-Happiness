@@ -9,7 +9,9 @@ public class CameraControll : MonoBehaviour
     public float detectionTreshold;
     public float borderRight;
     public float borderUp;
-    public float limitZoom;
+    public float limitZoomIn;
+    public float limitZoomOut;
+    private float scroll;
     void Start()
     {
         
@@ -18,6 +20,7 @@ public class CameraControll : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        scroll = Input.GetAxis("Mouse ScrollWheel");
         if (Input.mousePosition.x >= Screen.width - detectionTreshold && transform.position.x < borderRight)
         {
             transform.position += Vector3.right * Time.deltaTime * speed;
@@ -27,16 +30,16 @@ public class CameraControll : MonoBehaviour
             transform.position -= Vector3.right * Time.deltaTime * speed;
         }
 
-        if (Input.mousePosition.y >= Screen.height - detectionTreshold && transform.position.y > borderUp)
+        if (Input.mousePosition.y >= Screen.height - detectionTreshold && transform.position.z < borderUp)
         {
             transform.position += Vector3.forward * Time.deltaTime * speed;
         }
-        else if (Input.mousePosition.y <= detectionTreshold && transform.position.y > -borderUp)
+        else if (Input.mousePosition.y <= detectionTreshold && transform.position.z > -borderUp)
         {
             transform.position -= Vector3.forward * Time.deltaTime * speed;
         }
 
-        if(Input.GetAxis("Mouse ScrollWheel") != 0)
+        if((scroll > 0 && transform.position.y < limitZoomIn) || (scroll < 0 && transform.position.y > limitZoomOut))
         {
             transform.position += new Vector3(0, Input.GetAxis("Mouse ScrollWheel") * speed, 0);
         }

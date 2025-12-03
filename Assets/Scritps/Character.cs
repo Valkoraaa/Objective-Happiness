@@ -7,8 +7,12 @@ public class Character : MonoBehaviour {
 	private GameObject school;
 	private GameObject home;
 
+	[SerializeField] private int foodAmount = 1; // The needed amount of food to survive
+
 	private bool isTired = false;
 	private bool isHungry = false;
+
+	[SerializeField] private Game globalGame; // For optimization purposes: !!! DO NOT USE GETCOMPONENT<>() FUNCTION !!! CHOOSE THE GAME OBJECT IN THE EDITOR
 
 	public void Work() {
 		// If isn't tired -> goes to school or to job
@@ -32,14 +36,17 @@ public class Character : MonoBehaviour {
 		// If is hungry -> tries to eat, otherwise dies
 		if(isHungry) {
 			// Eats
+			// globalGame.ConsumeFood();
 			// TODO: check for available food
-		} else {
-			// Reduces hapiness bar
-			Kill();
+			if(globalGame.TotalFood <= foodAmount) { // No food at all -> dies
+				// Reduces hapiness bar
+				// globalGame.Hapiness -= 10;
+				Die();
+			}	
 		}
 	}
 
-	public void Kill() {
+	public void Die() {
 		// Character dies
 		// TODO: plays animation and despawns
 		Destroy(gameObject); // Self destruction

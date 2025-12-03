@@ -2518,6 +2518,8 @@ GameObject:
   m_Component:
   - component: {fileID: 1424571997}
   - component: {fileID: 1424571996}
+  - component: {fileID: 1424571999}
+  - component: {fileID: 1424571998}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -2557,6 +2559,34 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1424571998
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1424571995}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7705f1a149957c64e956b174a98962d0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  totalFood: 0
+  hapiness: 0
+--- !u!114 &1424571999
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1424571995}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d4f89977cace2154db242855654eaa26, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  prefab: {fileID: 368568549765028959, guid: d30f50de0696b904bad9d3e9ad289666, type: 3}
+  population: 100
 --- !u!1001 &1528403047
 PrefabInstance:
   m_ObjectHideFlags: 0

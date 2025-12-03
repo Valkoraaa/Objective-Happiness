@@ -3,14 +3,14 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class Character : MonoBehaviour {
-	private GameObject job;
-	private GameObject school;
-	private GameObject home;
+	public GameObject job;
+	public GameObject school;
+	public GameObject home;
 
 	[SerializeField] private int foodAmount = 1; // The needed amount of food to survive
 
-	private bool isTired = false;
-	private bool isHungry = false;
+	public bool isTired = false;
+	public bool isHungry = false;
 
 	[SerializeField] private Game globalGame; // For optimization purposes: !!! DO NOT USE GETCOMPONENT<>() FUNCTION !!! CHOOSE THE GAME OBJECT IN THE EDITOR
 
@@ -19,10 +19,8 @@ public class Character : MonoBehaviour {
 		if(!isTired) {
 			if(job != null) {
 				// Goes to job
-				isTired = true;
 			} else {
 				// Goes to school
-				isTired = true;
 			}
 		}
 

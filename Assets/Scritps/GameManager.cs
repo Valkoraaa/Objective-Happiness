@@ -6,7 +6,7 @@ public class GameManager : MonoBehaviour
 {
     public List<Character> charaAlive;
     public int food;
-    public int prospérité;
+    public int prosperity;
     // Start is called before the first frame update
     void Start()
     {
@@ -19,7 +19,7 @@ public class GameManager : MonoBehaviour
         
     }
 
-    /*void OnEnable() // active consommation quand EnfOfDay est appelé
+	void OnEnable() // active consommation quand EnfOfDay est appelé
     {
         EventManager.EndOfDay += Consommation;
     }
@@ -35,10 +35,10 @@ public class GameManager : MonoBehaviour
         {
             if(chara.home == null)
             {
-                chara.job == null; //vagabon
-                prospérité -= 1;
+                chara.job = null; //vagabon
+                prosperity -= 1;
             }
-            else { chara.GoToHouse(); } //va a sa maison
+            else { chara.GoHome(); } //va a sa maison
             if (food > 0)
             {
                 food -= 1;
@@ -47,5 +47,5 @@ public class GameManager : MonoBehaviour
 
             
         }
-    }*/ //EST MIS EN COMMENTAIRE LE TEMPS QUE CHARACTER SOIT IMPLEMENTER POUR PAS FAIRE PLANTER
+    } //EST MIS EN COMMENTAIRE LE TEMPS QUE CHARACTER SOIT IMPLEMENTER POUR PAS FAIRE PLANTER
 }

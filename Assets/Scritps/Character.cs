@@ -26,7 +26,7 @@ public class Character : MonoBehaviour {
 
 		// If tired -> seeks for shelter
 		if(home != null) {
-			// Goes home
+			GoHome();
 		} else {
 			// Reduces hapiness bar
 		}
@@ -48,5 +48,9 @@ public class Character : MonoBehaviour {
 		// Character dies
 		// TODO: plays animation and despawns
 		Destroy(gameObject); // Self destruction
+	}
+
+	public void GoHome() {
+
 	}
 }

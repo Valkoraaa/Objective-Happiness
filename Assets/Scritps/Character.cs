@@ -14,11 +14,11 @@ public class Character : MonoBehaviour {
 
 	public bool isTired = false;
 
-	public Character(GameObject actualJob, GameObject actualHome)
-	{
-		job = actualJob;
-		home = actualHome;
-	}
+    public void Init(GameObject actualJob, GameObject actualHome)
+    {
+        job = actualJob;
+        home = actualHome;
+    }
 
 	[SerializeField] private GameManager gameManager; // For optimization purposes: !!! DO NOT USE GETCOMPONENT<>() FUNCTION !!! CHOOSE THE GAME OBJECT IN THE EDITOR
 
@@ -55,6 +55,5 @@ public class Character : MonoBehaviour {
     }
 
 	public void GoHome() {
-
 	}
 }

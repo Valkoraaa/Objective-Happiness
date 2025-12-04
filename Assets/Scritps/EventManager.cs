@@ -9,7 +9,7 @@ public class EventManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        StartCoroutine(TriggerEventEvery30Seconds());
     }
 
     // Update is called once per frame

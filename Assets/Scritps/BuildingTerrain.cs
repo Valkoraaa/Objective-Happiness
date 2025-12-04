@@ -5,11 +5,11 @@ using UnityEngine;
 
 public class BuildingTerrain : MonoBehaviour
 {
-    public GameObject school;
+    /*public GameObject school;
     public GameObject farm;
     public GameObject museum;
     public GameObject library;
-    public GameObject house;
+    public GameObject house;*/
     private GameObject choosenBuilding;
     private bool wantsToBuild = false;
     // Start is called before the first frame update

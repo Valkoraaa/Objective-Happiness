@@ -14,13 +14,13 @@ public class Character : MonoBehaviour {
 
 	public bool isTired = false;
 
-	public Character(GameObject actualJob, GameObject actualHome)
-	{
-		job = actualJob;
-		home = actualHome;
-	}
+    public void Init(GameObject actualJob, GameObject actualHome)
+    {
+        job = actualJob;
+        home = actualHome;
+    }
 
-	[SerializeField] private Game globalGame; // For optimization purposes: !!! DO NOT USE GETCOMPONENT<>() FUNCTION !!! CHOOSE THE GAME OBJECT IN THE EDITOR
+    [SerializeField] private Game globalGame; // For optimization purposes: !!! DO NOT USE GETCOMPONENT<>() FUNCTION !!! CHOOSE THE GAME OBJECT IN THE EDITOR
 
     private void Start()
     {

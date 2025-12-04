@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.Jobs;
 using UnityEngine;
 
 public class GameManager : MonoBehaviour
@@ -8,10 +9,16 @@ public class GameManager : MonoBehaviour
     public int food;
     public int prosperity;
     public static GameManager Instance;
+    public GameObject characterPrefab;
 
     private void Awake()
     {
         Instance = this;
+
+        GameObject obj = Instantiate(characterPrefab);
+        Character c = obj.GetComponent<Character>();
+
+        c.Init(c.job, c.home);   // Peut etre temporaire
     }
     // Update is called once per frame
     void Update()

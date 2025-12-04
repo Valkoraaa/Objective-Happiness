@@ -11,10 +11,13 @@ public class SlidePannel : MonoBehaviour
     private float elapsed = 0f;
     private Vector3 startPos;
     private bool moving = false;
+    private bool hasBeenMoved = false;
+    private RectTransform rt;
     // Start is called before the first frame update
     void Start()
     {
-        
+        rt = GetComponent<RectTransform>();
+        distance = -rt.rect.width;
     }
 
     // Update is called once per frame
@@ -31,13 +34,23 @@ public class SlidePannel : MonoBehaviour
         }
     }
 
-    void Move(bool getIn)
+    public void Move(bool getIn)
     {
-        if (getIn)
+        if (getIn && !hasBeenMoved && !moving)
         {
+            distance = -distance;
             elapsed = 0f;
             startPos = transform.position;
             moving = true;
+            hasBeenMoved = true;
+        }
+        else if (!moving)
+        {
+            distance = -distance;
+            elapsed = 0f;
+            startPos = transform.position;
+            moving = true;
+            hasBeenMoved = false;
         }
     }
 }

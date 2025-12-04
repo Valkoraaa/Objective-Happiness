@@ -1,4 +1,4 @@
-using System.Collections;
+/*using System.Collections;
 using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
@@ -32,4 +32,4 @@ public class CharacterSpawner : MonoBehaviour{
 				character.isTired = true; // Tired at the end of the day
 		}
 	}
-}
+}*/

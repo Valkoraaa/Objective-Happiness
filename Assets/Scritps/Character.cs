@@ -5,10 +5,10 @@ using Unity.Properties;
 using UnityEngine;
 
 public class Character : MonoBehaviour {
-	public GameObject job;
-	//public GameObject school; pas sur de l utilit�
+	public BuildingBaseClass job;
+	public GameObject school;
 	public GameObject home;
-	private GameManager gm;
+	[SerializeField] private GameManager gm;
 
 	[SerializeField] private int foodAmount = 1; // The needed amount of food to survive
 
@@ -16,44 +16,52 @@ public class Character : MonoBehaviour {
 
     public void Init(GameObject actualJob, GameObject actualHome)
     {
-        job = actualJob;
+        job = actualJob.GetComponent<BuildingBaseClass>(); // Appliquons le script
         home = actualHome;
     }
-
-	[SerializeField] private GameManager gameManager; // For optimization purposes: !!! DO NOT USE GETCOMPONENT<>() FUNCTION !!! CHOOSE THE GAME OBJECT IN THE EDITOR
 
     private void Start()
     {
         gm = GameManager.Instance;
     }
 
-    public void CycleDay() {
+    // Cycles through his day: goes to job, exhausts
+    public void CycleDay()
+    {
         // If isn't tired -> goes to school or to job
 
-        if (home == null)
+        if (home == null) // Looses his job if he doesn't have a house
         {
             isTired = true;
-            gameManager.prosperity -= 1;
+            gm.prosperity -= 1;
         }
-        else { GoHome(); } //va a sa maison
-        if (gameManager.food > 0)
-        {
-            gameManager.food -= foodAmount;
-        }
-        else { Die(); }
-        if(!isTired)
-        {
-            //aller au travail
-        }
-	}
+        else GoHome(); //va a sa maison
+
+
+        if (gm.food > 0)
+            gm.food -= foodAmount;
+        else
+            Die();
+
+        if (!isTired) GoWork();
+    }
 
 	public void Die() {
 		// Character dies
 		// TODO: plays animation and despawns
-		Destroy(gameObject); // Self destruction
         gm.prosperity -= 1;
+		Destroy(gameObject); // Self destruction
     }
 
-	public void GoHome() {
-	}
+    public void GoWork()
+    {
+        transform.Translate(new Vector3(job.transform.position.x, job.transform.position.y, job.transform.position.z));
+        job.peopleWorking++; // Arrived at work
+        // Work for some time
+    }
+    public void GoHome()
+    {
+        transform.Translate(new Vector3(home.transform.position.x, home.transform.position.y, home.transform.position.z));
+        job.peopleWorking++; // Quit his work
+    }
 }

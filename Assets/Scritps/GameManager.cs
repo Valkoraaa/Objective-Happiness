@@ -7,6 +7,8 @@ public class GameManager : MonoBehaviour
 {
     public List<Character> charaAlive;
     public int food;
+    public int wood;
+    public int rocks;
     public int prosperity;
     public static GameManager Instance;
     public GameObject characterPrefab;
@@ -18,7 +20,10 @@ public class GameManager : MonoBehaviour
         GameObject obj = Instantiate(characterPrefab);
         Character c = obj.GetComponent<Character>();
 
-        c.Init(c.job, c.home);   // Peut etre temporaire
+        // for(int i = 0; i < 5; i++)
+        // {
+        //     c.Init(c.job, c.home);
+        // }
     }
     // Update is called once per frame
     void Update()

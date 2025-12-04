@@ -31,7 +31,7 @@ public class SlidePannel : MonoBehaviour
         }
     }
 
-    void Move(bool getIn)
+    public void Move(bool getIn)
     {
         if (getIn)
         {

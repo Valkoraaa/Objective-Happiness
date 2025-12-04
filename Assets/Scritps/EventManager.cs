@@ -6,17 +6,8 @@ using System;
 public class EventManager : MonoBehaviour
 {
     public static event Action EndOfDay;
-    // Start is called before the first frame update
-    void Start()
-    {
-        StartCoroutine(TriggerEventEvery30Seconds());
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    
+    void Start() { StartCoroutine(TriggerEventEvery30Seconds()); }
 
     private IEnumerator TriggerEventEvery30Seconds()
     {
@@ -24,7 +15,7 @@ public class EventManager : MonoBehaviour
         {
             yield return new WaitForSeconds(30f); // attends 30 secondes
             EndOfDay.Invoke();
-            Debug.Log("Event déclenché !");
+            Debug.Log("Event dï¿½clenchï¿½ !");
         }
     }
 }

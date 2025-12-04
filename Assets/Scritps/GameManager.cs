@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.Jobs;
 using UnityEngine;
+using UnityEngine.TextCore.Text;
 
 public class GameManager : MonoBehaviour
 {
@@ -9,6 +10,7 @@ public class GameManager : MonoBehaviour
     public List<House> houses;
     public static GameManager Instance;
     public GameObject characterPrefab;
+    public GameObject[] jobs;   // assign�s dans l�inspecteur
 
     public int food;
     public int wood;
@@ -18,13 +20,12 @@ public class GameManager : MonoBehaviour
     private void Awake()
     {
         Instance = this;
-
-        GameObject obj = Instantiate(characterPrefab); // Initialising prefab
-        Character c = obj.GetComponent<Character>(); // Getting its script
-
-        for(int i = 0; i < 5; i++)
+        for (int i = 0; i < 4; i++)
         {
-            c.Init(c.job.gameObject, c.house.gameObject); // Initialises his job and house. NOT SUITABLE FOR NEWBORN CHARACTERS
+            GameObject obj = Instantiate(characterPrefab);
+            Character c = obj.GetComponent<Character>();
+
+            c.Init(jobs[i], c.house.gameObject);   // Peut etre temporaire
         }
     }
 
@@ -37,5 +38,9 @@ public class GameManager : MonoBehaviour
         {
             chara.CycleDay();
         }
-    } //EST MIS EN COMMENTAIRE LE TEMPS QUE CHARACTER SOIT IMPLEMENTER POUR PAS FAIRE PLANTER
+        GameObject obj = Instantiate(characterPrefab);
+        Character c = obj.GetComponent<Character>();
+
+        c.Init(null, c.house.gameObject);   // Peut etre temporaire
+    }
 }

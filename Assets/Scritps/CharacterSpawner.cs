@@ -1,4 +1,4 @@
-/*using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
@@ -19,17 +19,4 @@ public class CharacterSpawner : MonoBehaviour{
 			// Setting up the parameters
 		}
 	}
-
-	private void DayStart() {
-		foreach(Character character in characterList) {
-			if(character.home != null) // If has a home -> not tired anymore
-				character.isTired = false;
-		}
-	}
-	private void DayEnd() {
-		foreach(Character character in characterList) {
-			if(character.job != null || character.school != null) // If he worked or studied
-				character.isTired = true; // Tired at the end of the day
-		}
-	}
-}*/
+}

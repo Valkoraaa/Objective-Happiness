@@ -11,9 +11,9 @@ public class House : MonoBehaviour
         gm = GameManager.Instance;
         foreach (Character chara in gm.charaAlive)
         {
-            if (chara.home != null)
+            if (chara.house != null)
             {
-                chara.home = this.gameObject;
+                chara.house = this;
             }
         }
     }

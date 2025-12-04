@@ -1,54 +1,60 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.Properties;
 using UnityEngine;
 
 public class Character : MonoBehaviour {
-	private GameObject job;
-	private GameObject school;
-	private GameObject home;
+	public GameObject job;
+	//public GameObject school; pas sur de l utilité
+	public GameObject home;
+	private GameManager gm;
 
 	[SerializeField] private int foodAmount = 1; // The needed amount of food to survive
 
-	private bool isTired = false;
-	private bool isHungry = false;
+	public bool isTired = false;
+
+	public Character(GameObject actualJob, GameObject actualHome)
+	{
+		job = actualJob;
+		home = actualHome;
+	}
 
 	[SerializeField] private Game globalGame; // For optimization purposes: !!! DO NOT USE GETCOMPONENT<>() FUNCTION !!! CHOOSE THE GAME OBJECT IN THE EDITOR
 
-	public void Work() {
-		// If isn't tired -> goes to school or to job
-		if(!isTired) {
-			if(job != null) {
-				// Goes to job
-				isTired = true;
-			} else {
-				// Goes to school
-				isTired = true;
-			}
-		}
+    private void Start()
+    {
+        gm = GameManager.Instance;
+    }
 
-		// If tired -> seeks for shelter
-		if(home != null) {
-			// Goes home
-		} else {
-			// Reduces hapiness bar
-		}
-		
-		// If is hungry -> tries to eat, otherwise dies
-		if(isHungry) {
-			// Eats
-			// globalGame.ConsumeFood();
-			// TODO: check for available food
-			if(globalGame.TotalFood <= foodAmount) { // No food at all -> dies
-				// Reduces hapiness bar
-				// globalGame.Hapiness -= 10;
-				Die();
-			}	
-		}
+    public void CycleDay() {
+        // If isn't tired -> goes to school or to job
+
+        if (home == null)
+        {
+            isTired = true;
+            globalGame.Hapiness -= 1;
+        }
+        else { GoHome(); } //va a sa maison
+        if (globalGame.TotalFood > 0)
+        {
+            globalGame.TotalFood -= foodAmount;
+        }
+        else { Die(); }
+        if(!isTired)
+        {
+            //aller au travail
+        }
 	}
 
 	public void Die() {
 		// Character dies
 		// TODO: plays animation and despawns
 		Destroy(gameObject); // Self destruction
+        gm.prosperity -= 1;
+    }
+
+	public void GoHome() {
+
 	}
 }

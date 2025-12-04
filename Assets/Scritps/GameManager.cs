@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.Jobs;
 using UnityEngine;
+using UnityEngine.TextCore.Text;
 
 public class GameManager : MonoBehaviour
 {
@@ -10,15 +11,20 @@ public class GameManager : MonoBehaviour
     public int prosperity;
     public static GameManager Instance;
     public GameObject characterPrefab;
+    public GameObject[] jobs;   // assignés dans l’inspecteur
 
     private void Awake()
     {
         Instance = this;
 
-        GameObject obj = Instantiate(characterPrefab);
-        Character c = obj.GetComponent<Character>();
+        
+        for (int i = 0; i < 4; i++)
+        {
+            GameObject obj = Instantiate(characterPrefab);
+            Character c = obj.GetComponent<Character>();
 
-        c.Init(c.job, c.home);   // Peut etre temporaire
+            c.Init(jobs[i], c.home);   // Peut etre temporaire
+        }
     }
     // Update is called once per frame
     void Update()
@@ -43,5 +49,9 @@ public class GameManager : MonoBehaviour
             chara.CycleDay();
             
         }
-    } //EST MIS EN COMMENTAIRE LE TEMPS QUE CHARACTER SOIT IMPLEMENTER POUR PAS FAIRE PLANTER
+        GameObject obj = Instantiate(characterPrefab);
+        Character c = obj.GetComponent<Character>();
+
+        c.Init(null, c.home);   // Peut etre temporaire
+    }
 }

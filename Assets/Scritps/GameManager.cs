@@ -19,7 +19,7 @@ public class GameManager : MonoBehaviour
         
     }
 
-	void OnEnable() // active consommation quand EnfOfDay est appelé
+	void OnEnable() // active consommation quand EnfOfDay est appelï¿½
     {
         EventManager.EndOfDay += Evening;
     }
@@ -34,7 +34,6 @@ public class GameManager : MonoBehaviour
         foreach (Character chara in charaAlive)
         {
             chara.CycleDay();
-            
         }
     } //EST MIS EN COMMENTAIRE LE TEMPS QUE CHARACTER SOIT IMPLEMENTER POUR PAS FAIRE PLANTER
 }

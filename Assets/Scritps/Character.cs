@@ -6,7 +6,7 @@ using UnityEngine;
 
 public class Character : MonoBehaviour {
 	public GameObject job;
-	//public GameObject school; pas sur de l utilité
+	//public GameObject school; pas sur de l utilitï¿½
 	public GameObject home;
 	private GameManager gm;
 
@@ -20,7 +20,7 @@ public class Character : MonoBehaviour {
 		home = actualHome;
 	}
 
-	[SerializeField] private Game globalGame; // For optimization purposes: !!! DO NOT USE GETCOMPONENT<>() FUNCTION !!! CHOOSE THE GAME OBJECT IN THE EDITOR
+	[SerializeField] private GameManager gameManager; // For optimization purposes: !!! DO NOT USE GETCOMPONENT<>() FUNCTION !!! CHOOSE THE GAME OBJECT IN THE EDITOR
 
     private void Start()
     {
@@ -33,12 +33,12 @@ public class Character : MonoBehaviour {
         if (home == null)
         {
             isTired = true;
-            globalGame.Hapiness -= 1;
+            gameManager.prosperity -= 1;
         }
         else { GoHome(); } //va a sa maison
-        if (globalGame.TotalFood > 0)
+        if (gameManager.food > 0)
         {
-            globalGame.TotalFood -= foodAmount;
+            gameManager.food -= foodAmount;
         }
         else { Die(); }
         if(!isTired)

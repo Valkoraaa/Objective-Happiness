@@ -6,23 +6,27 @@ using UnityEngine;
 
 public class Character : MonoBehaviour {
 	public BuildingBaseClass job;
-	public GameObject school;
-	public GameObject home;
-	[SerializeField] private GameManager gm;
+	public BuildingBaseClass school;
+	public House house;
+	private GameManager gm;
 
 	[SerializeField] private int foodAmount = 1; // The needed amount of food to survive
 
-	public bool isTired = false;
+    public bool isTired = false;
 
-    public void Init(GameObject actualJob, GameObject actualHome)
+    // Initialises game character by passing the game objects and accessing their scripts
+    public void Init() // Newborn function which
     {
-        job = actualJob.GetComponent<BuildingBaseClass>(); // Appliquons le script
-        home = actualHome;
+        job = null;
+        house = null;
+        school = null;
+        gm = GameManager.Instance; // Reference to the game manager
     }
-
-    private void Start()
+    public void Init(GameObject actualJob, GameObject actualHouse)
     {
-        gm = GameManager.Instance;
+        job = actualJob.GetComponent<BuildingBaseClass>(); // Applying scripts
+        house = actualHouse.GetComponent<House>();
+        gm = GameManager.Instance; // Reference to the game manager
     }
 
     // Cycles through his day: goes to job, exhausts
@@ -30,13 +34,14 @@ public class Character : MonoBehaviour {
     {
         // If isn't tired -> goes to school or to job
 
-        if (home == null) // Looses his job if he doesn't have a house
+        if (house == null) // Doesn't job if he doesn't have a house
         {
             isTired = true;
             gm.prosperity -= 1;
-        }
-        else GoHome(); //va a sa maison
 
+            // Seek for house
+        }
+        else GoHouse(); //va a sa maison
 
         if (gm.food > 0)
             gm.food -= foodAmount;
@@ -55,13 +60,13 @@ public class Character : MonoBehaviour {
 
     public void GoWork()
     {
-        transform.Translate(new Vector3(job.transform.position.x, job.transform.position.y, job.transform.position.z));
+        transform.Translate(job.transform.position);
         job.peopleWorking++; // Arrived at work
         // Work for some time
     }
-    public void GoHome()
+    public void GoHouse()
     {
-        transform.Translate(new Vector3(home.transform.position.x, home.transform.position.y, home.transform.position.z));
-        job.peopleWorking++; // Quit his work
+        transform.Translate(house.transform.position);
+        job.peopleWorking--; // Quit his work
     }
 }

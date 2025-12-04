@@ -6,40 +6,30 @@ using UnityEngine;
 public class GameManager : MonoBehaviour
 {
     public List<Character> charaAlive;
+    public List<House> houses;
+    public static GameManager Instance;
+    public GameObject characterPrefab;
+
     public int food;
     public int wood;
     public int rocks;
     public int prosperity;
-    public static GameManager Instance;
-    public GameObject characterPrefab;
 
     private void Awake()
     {
         Instance = this;
 
-        GameObject obj = Instantiate(characterPrefab);
-        Character c = obj.GetComponent<Character>();
+        GameObject obj = Instantiate(characterPrefab); // Initialising prefab
+        Character c = obj.GetComponent<Character>(); // Getting its script
 
-        // for(int i = 0; i < 5; i++)
-        // {
-        //     c.Init(c.job, c.home);
-        // }
-    }
-    // Update is called once per frame
-    void Update()
-    {
-        
+        for(int i = 0; i < 5; i++)
+        {
+            c.Init(c.job.gameObject, c.house.gameObject); // Initialises his job and house. NOT SUITABLE FOR NEWBORN CHARACTERS
+        }
     }
 
-	void OnEnable() // active consommation quand EnfOfDay est appel�
-    {
-        EventManager.EndOfDay += Evening;
-    }
-
-    void OnDisable()
-    {
-        EventManager.EndOfDay -= Evening;
-    }
+	void OnEnable() { EventManager.EndOfDay += Evening; }
+    void OnDisable() { EventManager.EndOfDay -= Evening; }
 
     void Evening()
     {

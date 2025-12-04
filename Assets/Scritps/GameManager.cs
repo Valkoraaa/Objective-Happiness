@@ -25,22 +25,22 @@ public class GameManager : MonoBehaviour
             GameObject obj = Instantiate(characterPrefab);
             Character c = obj.GetComponent<Character>();
 
-            c.Init(jobs[i], c.house.gameObject);   // Peut etre temporaire
+            c.Init(jobs[i], c.house.gameObject);   // temporary?
         }
     }
 
 	void OnEnable() { EventManager.EndOfDay += Evening; }
     void OnDisable() { EventManager.EndOfDay -= Evening; }
 
-    void Evening()
+    void Evening() //called every evenings
     {
         foreach (Character chara in charaAlive)
         {
-            chara.CycleDay();
+            chara.CycleDay(); //enable end of day script for each characters
         }
         GameObject obj = Instantiate(characterPrefab);
         Character c = obj.GetComponent<Character>();
 
-        c.Init(null, c.house.gameObject);   // Peut etre temporaire
+        c.Init(null, c.house.gameObject);   // temporary?
     }
 }

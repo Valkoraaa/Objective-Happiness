@@ -1,21 +1,41 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting.Antlr3.Runtime;
 using UnityEngine;
-using System;
 
 public class EventManager : MonoBehaviour
 {
+    private bool paused = false;
     public static event Action EndOfDay;
     
     void Start() { StartCoroutine(TriggerEventEvery30Seconds()); }
 
-    private IEnumerator TriggerEventEvery30Seconds()
+    public void PauseGame()
     {
-        while (true) // boucle infinie
+        paused = !paused;
+        Debug.Log("Pause Game");
+    }
+
+    IEnumerator TriggerEventEvery30Seconds()
+    {
+        float timer = 0f;
+
+        while (true)
         {
-            yield return new WaitForSeconds(5f); // attends 30 secondes
-            EndOfDay?.Invoke();
-            Debug.Log("Event d�clench� !");
+            if (!paused)
+            {
+                timer += Time.deltaTime;
+
+                if (timer >= 5f)
+                {
+                    EndOfDay?.Invoke();
+                    Debug.Log("Event déclenché !");
+                    timer = 0f;
+                }
+            }
+
+            yield return null;
         }
     }
 }

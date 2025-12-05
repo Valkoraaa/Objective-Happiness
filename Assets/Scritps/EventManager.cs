@@ -13,8 +13,8 @@ public class EventManager : MonoBehaviour
     {
         while (true) // boucle infinie
         {
-            yield return new WaitForSeconds(30f); // attends 30 secondes
-            EndOfDay.Invoke();
+            yield return new WaitForSeconds(5f); // attends 30 secondes
+            EndOfDay?.Invoke();
             Debug.Log("Event d�clench� !");
         }
     }

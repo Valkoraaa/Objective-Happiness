@@ -1,5 +1,4 @@
 // GameManager.cs manages the life of characters, creating new characters and ressources
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 

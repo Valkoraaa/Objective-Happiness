@@ -1,18 +1,16 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using Unity.Properties;
+using UnityEditor;
 using UnityEngine;
 
 public class Character : MonoBehaviour {
+
 	[Header("Character occupations")]
-	public JobBaseClass job;
-	public JobBaseClass school;
+	public Job job;
+	public Job school;
     public House house;
 
 	private GameManager gm;
 
-	[SerializeField] private int foodAmount = 1; // The needed amount of food to survive
+	[SerializeField] private int foodConsumption = 1; // The needed amount of food to survive
 
     public bool isTired = false;
 
@@ -26,10 +24,16 @@ public class Character : MonoBehaviour {
     }
     public void Init(GameObject actualJob, GameObject actualHouse) // Receives game objects as arguments, then gets their scripts
     {
-        job = actualJob.GetComponent<JobBaseClass>(); // Applying scripts
+        job = actualJob.GetComponent<Job>(); // Applying scripts
         house = actualHouse.GetComponent<House>();
         school = null;
         gm = GameManager.Instance; // Reference to the game manager
+    }
+
+    private void Awake()
+    {
+        GoHouse();
+        Debug.Log("Game start!");
     }
 
     // Cycles through his day: goes to job, exhausts
@@ -43,7 +47,7 @@ public class Character : MonoBehaviour {
         }
         else GoHouse(); //va a sa maison
 
-        if (gm.food > 0) gm.food -= foodAmount;
+        if (gm.food > 0) gm.food -= foodConsumption;
         else Die();
 
         if (!isTired) GoWork();
@@ -59,7 +63,8 @@ public class Character : MonoBehaviour {
 
     public void GoWork()
     {
-        transform.Translate(job.transform.position);
+        transform.position = Vector3.MoveTowards(transform.position, job.transform.position, 2 * Time.deltaTime);
+        house.isTaken = true;
         job.Work();
         // Work for some time
 
@@ -67,9 +72,9 @@ public class Character : MonoBehaviour {
     }
     public void GoHouse()
     {
-        transform.Translate(house.transform.position); // Goes home
+        transform.position = Vector3.MoveTowards(transform.position, house.transform.position, 2 * Time.deltaTime);
         // Sleeps for some time
-        gm.food -= foodAmount; // Eats
+        gm.food -= foodConsumption; // Eats
         isTired = false; // Rests and gets energized
     }
 }

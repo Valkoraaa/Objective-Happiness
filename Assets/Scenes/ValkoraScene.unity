@@ -10446,8 +10446,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   charaAlive: []
-  houses: []
-  characterPrefab: {fileID: 919132149155446097, guid: 62807e515c0d423418e89c8afee00ec1, type: 3}
+  freeHouses: []
+  characterPrefab: {fileID: 2450568361709337251, guid: d30f50de0696b904bad9d3e9ad289666, type: 3}
   jobs:
   - {fileID: 1686327757}
   - {fileID: 958845288}

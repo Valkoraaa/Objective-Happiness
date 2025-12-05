@@ -1,31 +1,34 @@
+// GameManager.cs manages the life of characters, creating new characters and ressources
 using System.Collections;
 using System.Collections.Generic;
-using Unity.Jobs;
 using UnityEngine;
-using UnityEngine.TextCore.Text;
 
 public class GameManager : MonoBehaviour
 {
+    [Header("Game world parameters")]
     public List<Character> charaAlive;
-    public List<House> houses;
-    public static GameManager Instance;
+    public List<GameObject> freeHouses; // Houses that are free, we will delete them from the list if the character occupies it
     public GameObject characterPrefab;
-    public GameObject[] jobs;   // assign�s dans l�inspecteur
+    public GameObject[] jobs; // Initial available jobs and the beggining of the game
 
+    [Space]
+
+    [Header("Game system parameters")]
     public int food;
     public int wood;
     public int rocks;
     public int prosperity;
 
+    [HideInInspector] public static GameManager Instance;
+
     private void Awake()
     {
         Instance = this;
-        for (int i = 0; i < 4; i++)
-        {
-            GameObject obj = Instantiate(characterPrefab);
-            Character c = obj.GetComponent<Character>();
 
-            c.Init(jobs[i], c.house.gameObject);   // temporary?
+        for (int i = 0; i < 5; i++) // Firstly, we add 5 characters by the start of the game
+        {
+            Character c = Instantiate(characterPrefab).GetComponent<Character>();
+            c.Init(jobs[i], freeHouses[i]); // Applying default jobs and houses
         }
     }
 
@@ -35,13 +38,11 @@ public class GameManager : MonoBehaviour
     void Evening() //called every evenings
     {
         foreach (Character chara in charaAlive)
-        {
-            chara.CycleDay(); //enable end of day script for each characters
-        }
-        GameObject obj = Instantiate(characterPrefab);
-        Character c = obj.GetComponent<Character>();
+            chara.CycleDay(); // Works, getting tired, returns home
 
-        c.Init(null, c.house.gameObject);   // temporary?
+        Character c = Instantiate(characterPrefab).GetComponent<Character>();
+        c.Init(); // Each evening, new character borns, without anything
+
         Debug.Log("Evening GM");
     }
 }

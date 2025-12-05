@@ -5,19 +5,10 @@ using Unity.Properties;
 using UnityEngine;
 
 public class Character : MonoBehaviour {
-    public enum CharacterType
-    {
-        Farmer, // Collecteur de nourriture
-        Lumberjack, // Bucheron
-        Miner, // Mineur
-        Builder, // Maçon
-        Homeless, // Vagabon
-    }
-
 	[Header("Character occupations")]
-	public BuildingBaseClass job;
-	public BuildingBaseClass school;
-	public House house;
+	public JobBaseClass job;
+	public JobBaseClass school;
+    public House house;
 
 	private GameManager gm;
 
@@ -33,11 +24,11 @@ public class Character : MonoBehaviour {
         school = null;
         gm = GameManager.Instance; // Reference to the game manager
     }
-    public void Init(GameObject actualJob, GameObject actualHouse)
+    public void Init(GameObject actualJob, GameObject actualHouse) // Receives game objects as arguments, then gets their scripts
     {
-        job = actualJob.GetComponent<BuildingBaseClass>(); // Applying scripts
-        school = null;
+        job = actualJob.GetComponent<JobBaseClass>(); // Applying scripts
         house = actualHouse.GetComponent<House>();
+        school = null;
         gm = GameManager.Instance; // Reference to the game manager
     }
 
@@ -49,8 +40,6 @@ public class Character : MonoBehaviour {
         {
             isTired = true;
             gm.prosperity -= 1;
-
-            // Seek for house
         }
         else GoHouse(); //va a sa maison
 
@@ -71,12 +60,16 @@ public class Character : MonoBehaviour {
     public void GoWork()
     {
         transform.Translate(job.transform.position);
-        job.peopleWorking++; // Arrived at work
+        job.Work();
         // Work for some time
+
+        isTired = true; // Gets tired after work
     }
     public void GoHouse()
     {
-        transform.Translate(house.transform.position);
-        job.peopleWorking--; // Quit his work
+        transform.Translate(house.transform.position); // Goes home
+        // Sleeps for some time
+        gm.food -= foodAmount; // Eats
+        isTired = false; // Rests and gets energized
     }
 }

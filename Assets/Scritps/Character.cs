@@ -5,9 +5,20 @@ using Unity.Properties;
 using UnityEngine;
 
 public class Character : MonoBehaviour {
+    public enum CharacterType
+    {
+        Farmer, // Collecteur de nourriture
+        Lumberjack, // Bucheron
+        Miner, // Mineur
+        Builder, // Maçon
+        Homeless, // Vagabon
+    }
+
+	[Header("Character occupations")]
 	public BuildingBaseClass job;
 	public BuildingBaseClass school;
 	public House house;
+
 	private GameManager gm;
 
 	[SerializeField] private int foodAmount = 1; // The needed amount of food to survive
@@ -15,7 +26,7 @@ public class Character : MonoBehaviour {
     public bool isTired = false;
 
     // Initialises game character by passing the game objects and accessing their scripts
-    public void Init() // Newborn function which
+    public void Init() // Newborn function, doesn't take any arguments
     {
         job = null;
         house = null;
@@ -25,6 +36,7 @@ public class Character : MonoBehaviour {
     public void Init(GameObject actualJob, GameObject actualHouse)
     {
         job = actualJob.GetComponent<BuildingBaseClass>(); // Applying scripts
+        school = null;
         house = actualHouse.GetComponent<House>();
         gm = GameManager.Instance; // Reference to the game manager
     }
@@ -33,7 +45,6 @@ public class Character : MonoBehaviour {
     public void CycleDay()
     {
         // If isn't tired -> goes to school or to job
-
         if (house == null) // Doesn't job if he doesn't have a house
         {
             isTired = true;
@@ -43,15 +54,14 @@ public class Character : MonoBehaviour {
         }
         else GoHouse(); //va a sa maison
 
-        if (gm.food > 0)
-            gm.food -= foodAmount;
-        else
-            Die();
+        if (gm.food > 0) gm.food -= foodAmount;
+        else Die();
 
         if (!isTired) GoWork();
     }
 
-	public void Die() {
+	public void Die()
+    {
 		// Character dies
 		// TODO: plays animation and despawns
         gm.prosperity -= 1;

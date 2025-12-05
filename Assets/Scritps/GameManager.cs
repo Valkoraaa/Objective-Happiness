@@ -42,5 +42,6 @@ public class GameManager : MonoBehaviour
         Character c = obj.GetComponent<Character>();
 
         c.Init(null, c.house.gameObject);   // temporary?
+        Debug.Log("Evening GM");
     }
 }

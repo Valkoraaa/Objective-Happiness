@@ -17,7 +17,8 @@ public class GameManager : MonoBehaviour
     private int[] peopleAtWork = {0,0,0,0}; // 0 = wood, 1 = rock, 2 = food, 3 - builders
 
     public static GameManager Instance;
-    private TextMeshProUGUI[] ressourcesText; // 0 = wood, 1 = rock, 2 = food, 3 = population
+    [SerializeField] private TextMeshProUGUI[] ressourcesText; // 0 = wood, 1 = rock, 2 = food, 3 = population
+    [SerializeField] private TextMeshProUGUI[] peopleWorkingText; // 0 = wood, 1 = rock, 2 = food
 
     private void Awake()
     {
@@ -50,12 +51,17 @@ public class GameManager : MonoBehaviour
                     ressources[i] += 2; // Adding ressources
                     ressourcesText[i].text = ressources[i].ToString(); // Showing the ressources number
                     ressourcesText[3].text = charaAlive.Count.ToString(); // Show how many workers are for this job
-                    
+
+                    peopleAtWork[i] += 1;
+                    peopleWorkingText[i].text = peopleAtWork[i].ToString();
+
                     GameObject newModel = Instantiate(skin[i], chara.transform);
 
                     /*newModel.transform.localPosition = Vector3.zero;
                     newModel.transform.localRotation = Quaternion.identity; ------useless for now, delete it in the end if not used
                     newModel.transform.localScale = Vector3.one;*/
+
+                    peopleAtWork[i] = 0; // Reinitialisation of people working at specific place
                 }
             }
         }

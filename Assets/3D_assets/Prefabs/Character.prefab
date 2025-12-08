@@ -29,7 +29,7 @@ Transform:
   m_GameObject: {fileID: 368568549765028959}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 2.7188401, y: 0.70539784, z: 0.96865654}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.62523, y: 0.62523, z: 0.62523}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -121,9 +121,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   job: {fileID: 0}
-  school: {fileID: 0}
-  home: {fileID: 0}
+  house: {fileID: 0}
   foodAmount: 1
   isTired: 0
-  isHungry: 0
-  globalGame: {fileID: 0}

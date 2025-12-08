@@ -7,6 +7,6 @@ public class Farm : BuildingBaseClass
 {
     void Evening()
     {
-        gm.food += 5 * peopleWorking; // Calculating profit
+        //gm.food += 5 * peopleWorking; // Calculating profit
     }
 }

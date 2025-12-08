@@ -37,6 +37,7 @@ public class BuildingTerrain : MonoBehaviour
                 {
                     Debug.Log("Objet constructible cliqué : " + hit.collider.name);
                     Instantiate(choosenBuilding, hit.collider.transform.position, Quaternion.identity);
+                    hit.collider.tag = "nonConstructible";
                 }
             }
         }

@@ -12,6 +12,7 @@ public class Character : MonoBehaviour {
     public GameObject job;
     public GameObject house;
 	private GameManager gm;
+    public bool hasSkin = false;
     private float travelDuration = 1;
 
 	[SerializeField] private int foodAmount = 1; // The needed amount of food to survive
@@ -68,15 +69,23 @@ public class Character : MonoBehaviour {
     public IEnumerator GoWork()
     {
         float t = 0f;
-        while (t < travelDuration)
+        if(job == null || job == gm.jobs[3])
         {
             t += Time.deltaTime;
-            transform.position = Vector3.Lerp(transform.position, job.transform.position, t / travelDuration); //permet de créer un déplacement fluide
+            transform.position = Vector3.Lerp(transform.position, new Vector2(transform.position.x-100, transform.position.y), t / travelDuration); //permet de créer un déplacement fluide
             yield return null;
+        }
+        else
+        {
+            while (t < travelDuration)
+            {
+                t += Time.deltaTime;
+                transform.position = Vector3.Lerp(transform.position, job.transform.position, t / travelDuration); //permet de créer un déplacement fluide
+                yield return null;
+            }
         }
         //transform.Translate(job.transform.position);
         //transform.position = job.transform.position;
-        Debug.Log("working");
         //job.peopleWorking++; // Arrived at work
         // Work for some time
     }
@@ -91,7 +100,6 @@ public class Character : MonoBehaviour {
         }
         //transform.Translate(house.transform.position);
         //transform.position = house.transform.position;
-        Debug.Log("goHouse");
         //job.peopleWorking--; // Quit his work
     }
 }

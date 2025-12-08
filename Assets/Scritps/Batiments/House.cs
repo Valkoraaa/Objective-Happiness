@@ -6,25 +6,30 @@ public class House : MonoBehaviour
 {
     public bool isTaken;
     public GameManager gm;
-    /*void OnEnable()
+    void OnEnable()
     {
-        gm = GameManager.Instance;
-        foreach (Character chara in gm.charaAlive)
+        StartCoroutine(WaitForGM());
+    }
+
+    IEnumerator WaitForGM()
+    {
+        while(GameManager.Instance == null)
         {
-            if (chara.house != null)
-            {
-                chara.house = this.gameObject;
-            }
+            yield return null;
         }
-    }*/
-    void Start()
-    {
         gm = GameManager.Instance;
-        foreach (Character chara in gm.charaAlive)
+        gm.houses.Add(this);
+        if (!isTaken)
         {
-            if (chara.house != null)
+            foreach (Character chara in gm.charaAlive)
             {
-                chara.house = this.gameObject;
+                if (chara.house == null && !isTaken)
+                {
+                    chara.house = this.gameObject;
+                    isTaken = true;
+                    chara.transform.position = transform.position;
+                    chara.isTired = false;
+                }
             }
         }
     }

@@ -13150,12 +13150,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   charaAlive: []
-  houses:
-  - {fileID: 1825917229}
-  - {fileID: 1300789521}
-  - {fileID: 2122316800}
-  - {fileID: 1391942247}
-  - {fileID: 290854233}
+  houses: []
   characterPrefab: {fileID: 368568549765028959, guid: d30f50de0696b904bad9d3e9ad289666, type: 3}
   jobs:
   - {fileID: 2040146705}

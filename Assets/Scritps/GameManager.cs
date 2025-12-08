@@ -14,9 +14,10 @@ public class GameManager : MonoBehaviour
     public GameObject[] jobs;   
     public GameObject[] skin; // a assigner de la meme facon que l augmentation des ressources
     public int[] ressources; // 0 = wood, 1 = rock, 2 = food, 3 = prosperity
+    private int[] peopleAtWork = {0,0,0,0}; // 0 = wood, 1 = rock, 2 = food, 3 - builders
 
     public static GameManager Instance;
-    public TextMeshProUGUI[] ressourcesText; // 0 = wood, 1 = rock, 2 = food, 3 = population
+    private TextMeshProUGUI[] ressourcesText; // 0 = wood, 1 = rock, 2 = food, 3 = population
 
     private void Awake()
     {
@@ -48,7 +49,8 @@ public class GameManager : MonoBehaviour
                 {
                     ressources[i] += 2; // Adding ressources
                     ressourcesText[i].text = ressources[i].ToString(); // Showing the ressources number
-                    ressourcesText[3].text = charaAlive.Count.ToString();
+                    ressourcesText[3].text = charaAlive.Count.ToString(); // Show how many workers are for this job
+                    
                     GameObject newModel = Instantiate(skin[i], chara.transform);
 
                     /*newModel.transform.localPosition = Vector3.zero;

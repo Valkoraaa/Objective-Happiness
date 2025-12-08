@@ -14,6 +14,8 @@ public class Character : MonoBehaviour {
 	private GameManager gm;
     private float travelDuration = 1;
 
+    [SerializeField] private GameObject[] meshes;
+
 	[SerializeField] private int foodAmount = 1; // The needed amount of food to survive
 
     public bool isTired = false;
@@ -45,10 +47,10 @@ public class Character : MonoBehaviour {
             isTired = true;
             gm.ressources[3] -= 1;
 
-            // Seek for house
+            // Seeks for house
         }
         else StartCoroutine(GoHouse()); //va a sa maison
-        yield return new WaitForSeconds(5f); //------- à ajuster : 1/4 du jour défini dans eventmanager
+        yield return new WaitForSeconds(5f); //------- ï¿½ ajuster : 1/4 du jour dï¿½fini dans eventmanager
         if (gm.ressources[2] > 0)
             gm.ressources[2] -= foodAmount;
         else
@@ -71,12 +73,12 @@ public class Character : MonoBehaviour {
         while (t < travelDuration)
         {
             t += Time.deltaTime;
-            transform.position = Vector3.Lerp(transform.position, job.transform.position, t / travelDuration); //permet de créer un déplacement fluide
+            transform.position = Vector3.Lerp(transform.position, job.transform.position, t / travelDuration); //permet de crï¿½er un dï¿½placement fluide
             yield return null;
         }
-        //transform.Translate(job.transform.position);
-        //transform.position = job.transform.position;
-        Debug.Log("working");
+        ShowSelf(false);
+        
+        Debug.Log("Character: works");
         //job.peopleWorking++; // Arrived at work
         // Work for some time
     }
@@ -89,9 +91,13 @@ public class Character : MonoBehaviour {
             transform.position = Vector3.Lerp(transform.position, house.transform.position, t / travelDuration);
             yield return null;
         }
-        //transform.Translate(house.transform.position);
-        //transform.position = house.transform.position;
-        Debug.Log("goHouse");
+        ShowSelf(true);
+        Debug.Log("Character: goes home");
         //job.peopleWorking--; // Quit his work
+    }
+    
+    private void ShowSelf(bool value) {
+        foreach(var mesh in meshes)
+            mesh.gameObject.SetActive(value); // TODO: THIS FUNCTION DOES NOT WORK
     }
 }

@@ -12,7 +12,7 @@ public class EventManager : MonoBehaviour
     public Sprite[] dayIcons;
     public Image displayedIcon;
     public int dayLenght;
-    
+
     void Start() 
     {
         StartCoroutine(TriggerEventDayPast());
@@ -25,6 +25,8 @@ public class EventManager : MonoBehaviour
         paused = !paused;
         Debug.Log("Pause Game");
     }
+
+
 
     IEnumerator TriggerEventDayPast()
     {

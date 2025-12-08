@@ -25,6 +25,7 @@ public class BuildingTerrain : MonoBehaviour
         if(Input.GetKeyDown(KeyCode.Escape))
         {
             wantsToBuild = false;
+            Debug.Log("falseBuild");
         }
         if (Input.GetMouseButtonDown(0)) //vérifie si le joueur clique sur un objet ayant le tag constructible
         {
@@ -36,6 +37,7 @@ public class BuildingTerrain : MonoBehaviour
                 // Vérifie le tag de l’objet touché
                 if (hit.collider.CompareTag("constructible") && wantsToBuild)
                 {
+                    Debug.Log("check");
                     for (int i = 0; i < gm.buildings.Length; i++)
                     {
                         Debug.Log("check1");
@@ -43,35 +45,40 @@ public class BuildingTerrain : MonoBehaviour
                         {
                             Debug.Log("check2");
                             bool canBuild = false;
-                            if (i == 0 && gm.ressources[0]>=30 && gm.ressources[1]>=20 && gm.masonNumber.Count>=3)
+                            if (i == 0 && gm.ressources[0]>=30 && gm.ressources[1]>=20 && gm.masonsNumber>=3)
                             {
                                 gm.ressources[0]-=30;
                                 gm.ressources[1]-=20;
                                 canBuild = true;
+                                gm.masonsNumber -= 3;
                             }
-                            else if (i == 1 && gm.ressources[0]>=10 && gm.ressources[1]>= 10 && gm.masonNumber.Count >= 1)
+                            else if (i == 1 && gm.ressources[0]>=10 && gm.ressources[1]>= 10 && gm.masonsNumber >= 1)
                             {
                                 gm.ressources[0]-=10;
                                 gm.ressources[1]-=10;
                                 canBuild = true;
+                                gm.masonsNumber -= 1;
                             }
-                            else if (i == 2 && gm.ressources[0] >= 30 && gm.ressources[1] >= 30 && gm.masonNumber.Count >= 2)
+                            else if (i == 2 && gm.ressources[0] >= 30 && gm.ressources[1] >= 30 && gm.masonsNumber >= 2)
                             {
                                 gm.ressources[0] -= 30;
                                 gm.ressources[1] -= 30;
                                 canBuild = true;
+                                gm.masonsNumber -= 2;
                             }
-                            else if (i == 3 && gm.ressources[0] >= 50 && gm.ressources[1] >= 50 && gm.masonNumber.Count >= 3)
+                            else if (i == 3 && gm.ressources[0] >= 50 && gm.ressources[1] >= 50 && gm.masonsNumber >= 3)
                             {
                                 gm.ressources[0] -= 50;
                                 gm.ressources[1] -= 50;
                                 canBuild = true;
+                                gm.masonsNumber -= 3;
                             }
-                            else if (i == 4 && gm.ressources[0] >= 30 && gm.ressources[1] >= 30 && gm.masonNumber.Count >= 1)
+                            else if (i == 4 && gm.ressources[0] >= 30 && gm.ressources[1] >= 30 && gm.masonsNumber >= 1)
                             {
                                 gm.ressources[0] -= 30;
                                 gm.ressources[1] -= 30;
                                 canBuild = true;
+                                gm.masonsNumber -= 1;
                             }
                             if(canBuild)
                             {

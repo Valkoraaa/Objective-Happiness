@@ -43,31 +43,31 @@ public class BuildingTerrain : MonoBehaviour
                         {
                             Debug.Log("check2");
                             bool canBuild = false;
-                            if (i == 0 && gm.ressources[0]>=30 && gm.ressources[1]>=20 && gm.masonNumber.Count>=2)
+                            if (i == 0 && gm.ressources[0]>=30 && gm.ressources[1]>=20 && gm.masonNumber.Count>=3)
                             {
                                 gm.ressources[0]-=30;
                                 gm.ressources[1]-=20;
                                 canBuild = true;
                             }
-                            else if (i == 1 && gm.ressources[0]>=10 && gm.ressources[1]>=10)
+                            else if (i == 1 && gm.ressources[0]>=10 && gm.ressources[1]>= 10 && gm.masonNumber.Count >= 1)
                             {
                                 gm.ressources[0]-=10;
                                 gm.ressources[1]-=10;
                                 canBuild = true;
                             }
-                            else if (i == 2 && gm.ressources[0] >= 30 && gm.ressources[1] >= 30)
+                            else if (i == 2 && gm.ressources[0] >= 30 && gm.ressources[1] >= 30 && gm.masonNumber.Count >= 2)
                             {
                                 gm.ressources[0] -= 30;
                                 gm.ressources[1] -= 30;
                                 canBuild = true;
                             }
-                            else if (i == 3 && gm.ressources[0] >= 50 && gm.ressources[1] >= 50)
+                            else if (i == 3 && gm.ressources[0] >= 50 && gm.ressources[1] >= 50 && gm.masonNumber.Count >= 3)
                             {
                                 gm.ressources[0] -= 50;
                                 gm.ressources[1] -= 50;
                                 canBuild = true;
                             }
-                            else if (i == 4 && gm.ressources[0] >= 30 && gm.ressources[1] >= 30)
+                            else if (i == 4 && gm.ressources[0] >= 30 && gm.ressources[1] >= 30 && gm.masonNumber.Count >= 1)
                             {
                                 gm.ressources[0] -= 30;
                                 gm.ressources[1] -= 30;

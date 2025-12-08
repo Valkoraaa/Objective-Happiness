@@ -1,15 +1,16 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using Unity.Jobs;
 using UnityEngine;
 using UnityEngine.TextCore.Text;
+using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
+    public GameObject characterPrefab;
     public List<Character> charaAlive;
     public List<House> houses;
-    public static GameManager Instance;
-    public GameObject characterPrefab;
     public GameObject[] jobs;   
     public GameObject[] skin; // a assigner de la meme facon que l augmentation des ressources
     public GameObject[] buildings;
@@ -18,6 +19,14 @@ public class GameManager : MonoBehaviour
     public int masonsNumber;
     private bool charaSelected = false;
     public SlidePannel sp;
+    private int[] peopleAtWork = {0,0,0,0}; // 0 = wood, 1 = rock, 2 = food, 3 - builders
+    public static GameManager Instance;
+
+    [SerializeField] private TextMeshProUGUI[] ressourcesText; // 0 = wood, 1 = rock, 2 = food, 3 = population
+    [SerializeField] private TextMeshProUGUI[] peopleWorkingText; // 0 = wood, 1 = rock, 2 = food
+    
+    public List<Character> masonNumber;
+
 
     private void Awake()
     {
@@ -34,24 +43,24 @@ public class GameManager : MonoBehaviour
     }
     void Update()
     {
-        if (Input.GetMouseButtonDown(0)) //vérifie si le joueur clique sur un objet ayant le tag constructible
+        if (Input.GetMouseButtonDown(0)) //vï¿½rifie si le joueur clique sur un objet ayant le tag constructible
         {
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             RaycastHit hit;
 
             if (Physics.Raycast(ray, out hit))
             {
-                // Vérifie le tag de l’objet touché
+                // Vï¿½rifie le tag de lï¿½objet touchï¿½
                 if (hit.collider.CompareTag("character"))
                 {
                     charaSelected = true;
-                    Debug.Log("charaCliqué");
+                    Debug.Log("charaCliquï¿½");
                 }
                 else if (hit.collider.CompareTag("school") && charaSelected)
                 {
                     charaSelected = false;
                     sp.Move(true);
-                    Debug.Log("SchoolCliqué");
+                    Debug.Log("SchoolCliquï¿½");
                 }
             }
         }
@@ -71,16 +80,27 @@ public class GameManager : MonoBehaviour
             {
                 if (chara.job == jobs[i] && chara.job != jobs[jobs.Length -1])
                 {
+                    ressources[i] += 2; // Adding ressources
+                    ressourcesText[i].text = ressources[i].ToString(); // Showing the ressources number
+                    ressourcesText[3].text = charaAlive.Count.ToString(); // Show how many workers are for this job
+
+                    peopleAtWork[i] += 1;
+                    peopleWorkingText[i].text = peopleAtWork[i].ToString();
+
+                    GameObject newModel = Instantiate(skin[i], chara.transform);
+
                     ressources[i] += 2;
                     if(!chara.hasSkin)
                     {
-                        GameObject newModel = Instantiate(skin[i], chara.transform);
+                        newModel = Instantiate(skin[i], chara.transform);
                         chara.hasSkin = true;
                     }
 
                     /*newModel.transform.localPosition = Vector3.zero;
                     newModel.transform.localRotation = Quaternion.identity; ------useless for now, delete it in the end if not used
                     newModel.transform.localScale = Vector3.one;*/
+
+                    peopleAtWork[i] = 0; // Reinitialisation of people working at specific place
                 }
                 else if (!chara.hasSkin && i == jobs.Length - 1)
                 {

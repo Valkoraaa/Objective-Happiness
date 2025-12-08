@@ -86,12 +86,15 @@ public class Character : MonoBehaviour {
                 yield return null;
             }
         }
-        
-        ShowSelf(false);
+
+        gameObject.transform.localScale = new Vector3(0,0,0);
         Debug.Log("Character: works");
     }
     public IEnumerator GoHouse()
     {
+        gameObject.transform.localScale = new Vector3(0.8f, 0.8f, 0.8f);
+        Debug.Log("Character: goes home");
+
         float t = 0f;
         while (t < travelDuration)
         {
@@ -99,13 +102,5 @@ public class Character : MonoBehaviour {
             transform.position = Vector3.Lerp(transform.position, house.transform.position, t / travelDuration);
             yield return null;
         }
-
-        ShowSelf(true);
-        Debug.Log("Character: goes home");
-    }
-    
-    private void ShowSelf(bool value) {
-        foreach(var mesh in meshes)
-            mesh.gameObject.SetActive(value); // TODO: THIS FUNCTION DOES NOT WORK
     }
 }

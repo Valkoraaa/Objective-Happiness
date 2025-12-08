@@ -1,18 +1,22 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using Unity.Jobs;
 using UnityEngine;
 using UnityEngine.TextCore.Text;
+using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
+    public GameObject characterPrefab;
     public List<Character> charaAlive;
     public List<House> houses;
-    public static GameManager Instance;
-    public GameObject characterPrefab;
     public GameObject[] jobs;   
     public GameObject[] skin; // a assigner de la meme facon que l augmentation des ressources
     public int[] ressources; // 0 = wood, 1 = rock, 2 = food, 3 = prosperity
+
+    public static GameManager Instance;
+    public TextMeshProUGUI[] ressourcesText; // 0 = wood, 1 = rock, 2 = food, 3 = population
 
     private void Awake()
     {
@@ -25,7 +29,8 @@ public class GameManager : MonoBehaviour
             //c.Init(jobs[i], c.house.gameObject);   // temporary?
             c.Init(jobs[i], houses[i].gameObject);
             charaAlive.Add(c);
-        };
+        }
+        ;
     }
 
 
@@ -41,10 +46,11 @@ public class GameManager : MonoBehaviour
             {
                 if (chara.job == jobs[i])
                 {
-                    ressources[i] += 2;
+                    ressources[i] += 2; // Adding ressources
+                    ressourcesText[i].text = ressources[i].ToString(); // Showing the ressources number
+                    ressourcesText[3].text = charaAlive.Count.ToString();
                     GameObject newModel = Instantiate(skin[i], chara.transform);
 
-                    
                     /*newModel.transform.localPosition = Vector3.zero;
                     newModel.transform.localRotation = Quaternion.identity; ------useless for now, delete it in the end if not used
                     newModel.transform.localScale = Vector3.one;*/

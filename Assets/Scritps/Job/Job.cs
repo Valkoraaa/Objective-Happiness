@@ -21,15 +21,15 @@ public class Job : MonoBehaviour
         switch (jobType)
         {
             case JobType.Farmer:
-                gm.food += gainPerPerson;
+                gm.ressources[2] += gainPerPerson;
                 break;
 
             case JobType.Lumberjack:
-                gm.wood += gainPerPerson;
+                gm.ressources[0] += gainPerPerson;
                 break;
 
             case JobType.Miner:
-                gm.rocks += gainPerPerson;
+                gm.ressources[1] += gainPerPerson;
                 break;
 
             case JobType.Builder:

@@ -46,7 +46,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   job: {fileID: 0}
-  school: {fileID: 0}
   house: {fileID: 0}
   foodAmount: 1
   isTired: 0

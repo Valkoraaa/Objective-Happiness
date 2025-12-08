@@ -13162,7 +13162,11 @@ MonoBehaviour:
   - {fileID: 447370434}
   - {fileID: 1576134245}
   - {fileID: 1132785842}
-  skin: []
+  skin:
+  - {fileID: 919132149155446097, guid: 62807e515c0d423418e89c8afee00ec1, type: 3}
+  - {fileID: 919132149155446097, guid: 8438d940a42588e44a264cfd98291d97, type: 3}
+  - {fileID: 919132149155446097, guid: c862834b3e0b7754fb820fbdd53bc0fa, type: 3}
+  - {fileID: 919132149155446097, guid: fce1f2f795ea4854ca660af56ff77588, type: 3}
   ressources: 32000000320000006400000032000000
 --- !u!1001 &1428395410
 PrefabInstance:

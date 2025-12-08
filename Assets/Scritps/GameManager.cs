@@ -42,6 +42,12 @@ public class GameManager : MonoBehaviour
                 if (chara.job == jobs[i])
                 {
                     ressources[i] += 2;
+                    GameObject newModel = Instantiate(skin[i], chara.transform);
+
+                    
+                    /*newModel.transform.localPosition = Vector3.zero;
+                    newModel.transform.localRotation = Quaternion.identity; ------useless for now, delete it in the end if not used
+                    newModel.transform.localScale = Vector3.one;*/
                 }
             }
         }

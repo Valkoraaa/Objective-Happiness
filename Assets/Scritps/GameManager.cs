@@ -88,12 +88,12 @@ public class GameManager : MonoBehaviour
             {
                 if (chara.job == jobs[i] && chara.job != jobs[jobs.Length -1])
                 {
-                    //ressources[i] += 2; // Adding ressources
-                    //ressourcesText[i].text = ressources[i].ToString(); // Showing the ressources number
-                    //ressourcesText[3].text = charaAlive.Count.ToString(); // Show how many workers are for this job
+                    ressources[i] += 2; // Adding ressources
+                    ressourcesText[i].text = ressources[i].ToString(); // Showing the ressources number
+                    ressourcesText[3].text = charaAlive.Count.ToString(); // Show how many workers are for this job
 
-                    //peopleAtWork[i] += 1;
-                    //peopleWorkingText[i].text = peopleAtWork[i].ToString();
+                    peopleAtWork[i] += 1;
+                    peopleWorkingText[i].text = peopleAtWork[i].ToString();
 
                     GameObject newModel = Instantiate(skin[i], chara.transform);
 

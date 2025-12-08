@@ -11,11 +11,13 @@ public class EventManager : MonoBehaviour
     public static event Action EndOfDay;
     public Sprite[] dayIcons;
     public Image displayedIcon;
+    public int dayLenght;
     
     void Start() 
     {
         StartCoroutine(TriggerEventDayPast());
         StartCoroutine(UpdateDayUi());
+        EndOfDay?.Invoke();
     }
 
     public void PauseGame()
@@ -34,7 +36,7 @@ public class EventManager : MonoBehaviour
             {
                 timer += Time.deltaTime;
 
-                if (timer >= 20f)
+                if (timer >= dayLenght)
                 {
                     EndOfDay?.Invoke();
                     Debug.Log("Event déclenché !");
@@ -60,10 +62,9 @@ public class EventManager : MonoBehaviour
                 }
                 timer += Time.deltaTime;
                 displayedIcon.sprite = dayIcons[dayStep];
-                if (timer >= 5f)
+                if (timer >= (dayLenght/4))
                 {
-                    EndOfDay?.Invoke();
-                    Debug.Log("Event déclenché !");
+                    //EndOfDay?.Invoke(); Why??
                     timer = 0f;
                     dayStep ++;
                 }

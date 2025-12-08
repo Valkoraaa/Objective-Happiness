@@ -36,6 +36,7 @@ public class Character : MonoBehaviour {
         job = actualJob;
         house = actualHouse;
         gm = GameManager.Instance; // Reference to the game manager
+        transform.localScale = new Vector3(0.2f, 0.2f, 0.2f);
     }
 
     // Cycles through his day: goes to job, exhausts
@@ -92,7 +93,7 @@ public class Character : MonoBehaviour {
     }
     public IEnumerator GoHouse()
     {
-        gameObject.transform.localScale = new Vector3(0.8f, 0.8f, 0.8f);
+        gameObject.transform.localScale = new Vector3(0.2f, 0.2f, 0.2f);
         Debug.Log("Character: goes home");
 
         float t = 0f;

@@ -1240,6 +1240,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 1424571998}
+        m_TargetAssemblyTypeName: GameManager, Assembly-CSharp
+        m_MethodName: ChangeJob
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 447370434}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &186950179
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3877,7 +3889,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5e71b4069f8f70643ada247cd829e63c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  peopleWorking: 0
+  jobType: 0
 --- !u!1001 &458588189
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -6108,6 +6120,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 1424571998}
+        m_TargetAssemblyTypeName: GameManager, Assembly-CSharp
+        m_MethodName: ChangeJob
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 1132785842}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &623195936
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6391,6 +6415,18 @@ MonoBehaviour:
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1424571998}
+        m_TargetAssemblyTypeName: GameManager, Assembly-CSharp
+        m_MethodName: ChangeJob
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 2040146705}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.GameObject, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -8465,6 +8501,18 @@ MonoBehaviour:
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1424571998}
+        m_TargetAssemblyTypeName: GameManager, Assembly-CSharp
+        m_MethodName: ChangeJob
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 1576134245}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.GameObject, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -13149,9 +13197,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5d6f4d387b23c2b4e939b0158558aed9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  characterPrefab: {fileID: 2450568361709337251, guid: d30f50de0696b904bad9d3e9ad289666, type: 3}
   charaAlive: []
   houses: []
-  characterPrefab: {fileID: 368568549765028959, guid: d30f50de0696b904bad9d3e9ad289666, type: 3}
   jobs:
   - {fileID: 2040146705}
   - {fileID: 447370434}
@@ -13162,7 +13210,19 @@ MonoBehaviour:
   - {fileID: 919132149155446097, guid: 8438d940a42588e44a264cfd98291d97, type: 3}
   - {fileID: 919132149155446097, guid: c862834b3e0b7754fb820fbdd53bc0fa, type: 3}
   - {fileID: 919132149155446097, guid: fce1f2f795ea4854ca660af56ff77588, type: 3}
+  buildings:
+  - {fileID: 1503573391699548202, guid: bbb1552e0ca7c3040b4bb6b5670f8f56, type: 3}
+  - {fileID: 6171107569469312729, guid: 315d0cf915a70a4419f5eab8d1499977, type: 3}
+  - {fileID: 6660304011542129833, guid: 8c87aa4c5663bbe4186f794d9fefe24c, type: 3}
+  - {fileID: 7705805786417245019, guid: 65497c172eaa09f419b97ac17e79d7e6, type: 3}
+  - {fileID: 446552036134237950, guid: 383656aa51f330a44868d5ed17f76569, type: 3}
   ressources: 32000000320000006400000032000000
+  masonsNumber: 0
+  sp: {fileID: 1717056222}
+  changingChara: {fileID: 0}
+  ressourcesText: []
+  peopleWorkingText: []
+  masonNumber: []
 --- !u!1001 &1428395410
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -14561,7 +14621,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5e71b4069f8f70643ada247cd829e63c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  peopleWorking: 0
+  jobType: 0
 --- !u!1 &1580658821 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 817d2c42be4fa814eb6cafe95099bb5f, type: 3}
@@ -18302,7 +18362,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5e71b4069f8f70643ada247cd829e63c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  peopleWorking: 0
+  jobType: 0
 --- !u!1 &2041357951 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 817d2c42be4fa814eb6cafe95099bb5f, type: 3}

@@ -21,6 +21,7 @@ public class GameManager : MonoBehaviour
     public SlidePannel sp;
     private int[] peopleAtWork = {0,0,0,0}; // 0 = wood, 1 = rock, 2 = food, 3 - builders
     public static GameManager Instance;
+    public Character changingChara;
 
     [SerializeField] private TextMeshProUGUI[] ressourcesText; // 0 = wood, 1 = rock, 2 = food, 3 = population
     [SerializeField] private TextMeshProUGUI[] peopleWorkingText; // 0 = wood, 1 = rock, 2 = food
@@ -55,6 +56,7 @@ public class GameManager : MonoBehaviour
                 {
                     charaSelected = true;
                     Debug.Log("charaCliqu�");
+                    changingChara = hit.collider.GetComponent<Character>();
                 }
                 else if (hit.collider.CompareTag("school") && charaSelected)
                 {
@@ -64,6 +66,12 @@ public class GameManager : MonoBehaviour
                 }
             }
         }
+    }
+
+    public void ChangeJob(GameObject changeJob)
+    {
+        changingChara.job = changeJob;
+        changingChara.hasSkin = false;
     }
 
 
@@ -80,12 +88,12 @@ public class GameManager : MonoBehaviour
             {
                 if (chara.job == jobs[i] && chara.job != jobs[jobs.Length -1])
                 {
-                    ressources[i] += 2; // Adding ressources
-                    ressourcesText[i].text = ressources[i].ToString(); // Showing the ressources number
-                    ressourcesText[3].text = charaAlive.Count.ToString(); // Show how many workers are for this job
+                    //ressources[i] += 2; // Adding ressources
+                    //ressourcesText[i].text = ressources[i].ToString(); // Showing the ressources number
+                    //ressourcesText[3].text = charaAlive.Count.ToString(); // Show how many workers are for this job
 
-                    peopleAtWork[i] += 1;
-                    peopleWorkingText[i].text = peopleAtWork[i].ToString();
+                    //peopleAtWork[i] += 1;
+                    //peopleWorkingText[i].text = peopleAtWork[i].ToString();
 
                     GameObject newModel = Instantiate(skin[i], chara.transform);
 

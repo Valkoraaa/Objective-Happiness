@@ -2,13 +2,17 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.Properties;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class Character : MonoBehaviour {
-	public BuildingBaseClass job;
+    /*public BuildingBaseClass job;
 	public BuildingBaseClass school;
-	public House house;
+	public House house;*/
+    public GameObject job;
+    public GameObject house;
 	private GameManager gm;
+    private float travelDuration = 1;
 
 	[SerializeField] private int foodAmount = 1; // The needed amount of food to survive
 
@@ -19,54 +23,75 @@ public class Character : MonoBehaviour {
     {
         job = null;
         house = null;
-        school = null;
+        //school = null;
         gm = GameManager.Instance; // Reference to the game manager
     }
     public void Init(GameObject actualJob, GameObject actualHouse)
     {
-        job = actualJob.GetComponent<BuildingBaseClass>(); // Applying scripts
-        house = actualHouse.GetComponent<House>();
+        //job = actualJob.GetComponent<BuildingBaseClass>(); // Applying scripts
+        //house = actualHouse.GetComponent<House>();
+        job = actualJob;
+        house = actualHouse;
         gm = GameManager.Instance; // Reference to the game manager
     }
 
     // Cycles through his day: goes to job, exhausts
-    public void CycleDay()
+    public IEnumerator CycleDay()
     {
         // If isn't tired -> goes to school or to job
 
         if (house == null) // Doesn't job if he doesn't have a house
         {
             isTired = true;
-            gm.prosperity -= 1;
+            gm.ressources[3] -= 1;
 
             // Seek for house
         }
-        else GoHouse(); //va a sa maison
-
-        if (gm.food > 0)
-            gm.food -= foodAmount;
+        else StartCoroutine(GoHouse()); //va a sa maison
+        yield return new WaitForSeconds(5f); //------- à ajuster : 1/4 du jour défini dans eventmanager
+        if (gm.ressources[2] > 0)
+            gm.ressources[2] -= foodAmount;
         else
             Die();
 
-        if (!isTired) GoWork();
+        if (!isTired) StartCoroutine(GoWork());
+
     }
 
 	public void Die() {
-		// Character dies
-		// TODO: plays animation and despawns
-        gm.prosperity -= 1;
+        // Character dies
+        // TODO: plays animation and despawns
+        gm.ressources[3] -= 1;
 		Destroy(gameObject); // Self destruction
     }
 
-    public void GoWork()
+    public IEnumerator GoWork()
     {
-        transform.Translate(job.transform.position);
-        job.peopleWorking++; // Arrived at work
+        float t = 0f;
+        while (t < travelDuration)
+        {
+            t += Time.deltaTime;
+            transform.position = Vector3.Lerp(transform.position, job.transform.position, t / travelDuration); //permet de créer un déplacement fluide
+            yield return null;
+        }
+        //transform.Translate(job.transform.position);
+        //transform.position = job.transform.position;
+        Debug.Log("working");
+        //job.peopleWorking++; // Arrived at work
         // Work for some time
     }
-    public void GoHouse()
+    public IEnumerator GoHouse()
     {
-        transform.Translate(house.transform.position);
-        job.peopleWorking--; // Quit his work
+        float t = 0f;
+        while (t < travelDuration)
+        {
+            t += Time.deltaTime;
+            transform.position = Vector3.Lerp(transform.position, house.transform.position, t / travelDuration);
+            yield return null;
+        }
+        //transform.Translate(house.transform.position);
+        //transform.position = house.transform.position;
+        Debug.Log("goHouse");
+        //job.peopleWorking--; // Quit his work
     }
 }

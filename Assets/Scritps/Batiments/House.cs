@@ -5,15 +5,26 @@ using UnityEngine;
 public class House : MonoBehaviour
 {
     public bool isTaken;
-    private GameManager gm;
-    void OnEnable()
+    public GameManager gm;
+    /*void OnEnable()
     {
         gm = GameManager.Instance;
         foreach (Character chara in gm.charaAlive)
         {
             if (chara.house != null)
             {
-                chara.house = this;
+                chara.house = this.gameObject;
+            }
+        }
+    }*/
+    void Start()
+    {
+        gm = GameManager.Instance;
+        foreach (Character chara in gm.charaAlive)
+        {
+            if (chara.house != null)
+            {
+                chara.house = this.gameObject;
             }
         }
     }

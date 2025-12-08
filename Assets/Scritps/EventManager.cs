@@ -39,7 +39,6 @@ public class EventManager : MonoBehaviour
                 if (timer >= dayLenght)
                 {
                     EndOfDay?.Invoke();
-                    Debug.Log("Event déclenché !");
                     timer = 0f;
                 }
             }

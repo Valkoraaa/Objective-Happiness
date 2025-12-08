@@ -12,6 +12,7 @@ public class Character : MonoBehaviour {
     public GameObject job;
     public GameObject house;
 	private GameManager gm;
+    public bool hasSkin = false;
     private float travelDuration = 1;
 
     [SerializeField] private GameObject[] meshes;
@@ -70,17 +71,24 @@ public class Character : MonoBehaviour {
     public IEnumerator GoWork()
     {
         float t = 0f;
-        while (t < travelDuration)
+        if (job == null || job == gm.jobs[3])
         {
             t += Time.deltaTime;
-            transform.position = Vector3.Lerp(transform.position, job.transform.position, t / travelDuration); //permet de cr�er un d�placement fluide
+            transform.position = Vector3.Lerp(transform.position, new Vector2(transform.position.x - 100, transform.position.y), t / travelDuration); //permet de cr�er un d�placement fluide
             yield return null;
         }
-        ShowSelf(false);
+        else
+        {
+            while (t < travelDuration)
+            {
+                t += Time.deltaTime;
+                transform.position = Vector3.Lerp(transform.position, job.transform.position, t / travelDuration); //permet de cr�er un d�placement fluide
+                yield return null;
+            }
+        }
         
+        ShowSelf(false);
         Debug.Log("Character: works");
-        //job.peopleWorking++; // Arrived at work
-        // Work for some time
     }
     public IEnumerator GoHouse()
     {
@@ -91,9 +99,9 @@ public class Character : MonoBehaviour {
             transform.position = Vector3.Lerp(transform.position, house.transform.position, t / travelDuration);
             yield return null;
         }
+
         ShowSelf(true);
         Debug.Log("Character: goes home");
-        //job.peopleWorking--; // Quit his work
     }
     
     private void ShowSelf(bool value) {

@@ -57,6 +57,7 @@ public class BuildingTerrain : MonoBehaviour
                                 gm.ressources[2] += 100;
                                 canBuild = true;
                                 gm.masonsNumber -= 3;
+                                gm.MapFull();
                             }
                             else if (i == 1 && gm.ressources[0]>=10 && gm.ressources[1]>= 10 && gm.masonsNumber >= 1) // House
                             {
@@ -64,6 +65,7 @@ public class BuildingTerrain : MonoBehaviour
                                 gm.ressources[1]-=10;
                                 canBuild = true;
                                 gm.masonsNumber -= 1;
+                                gm.MapFull();
                             }
                             else if (i == 2 && gm.ressources[0] >= 30 && gm.ressources[1] >= 30 && gm.masonsNumber >= 2) // Library
                             {
@@ -72,6 +74,7 @@ public class BuildingTerrain : MonoBehaviour
                                 canBuild = true;
                                 gm.masonsNumber -= 2;
                                 gm.ressources[3] += 40;
+                                gm.MapFull();
                             }
                             else if (i == 3 && gm.ressources[0] >= 50 && gm.ressources[1] >= 50 && gm.masonsNumber >= 3) // Museum
                             {
@@ -80,6 +83,7 @@ public class BuildingTerrain : MonoBehaviour
                                 gm.ressources[3] += 75;
                                 canBuild = true;
                                 gm.masonsNumber -= 3;
+                                gm.MapFull();
                             }
                             else if (i == 4 && gm.ressources[0] >= 30 && gm.ressources[1] >= 30 && gm.masonsNumber >= 1) // School
                             {
@@ -87,6 +91,7 @@ public class BuildingTerrain : MonoBehaviour
                                 gm.ressources[1] -= 30;
                                 canBuild = true;
                                 gm.masonsNumber -= 1;
+                                gm.MapFull();
                             }
                             if(canBuild)
                             {

@@ -7,12 +7,17 @@ using UnityEngine.UI;
 
 public class EventManager : MonoBehaviour
 {
-    private bool paused = false;
+    public bool paused = false;
     public static event Action EndOfDay;
     public Sprite[] dayIcons;
     public Image displayedIcon;
     public int dayLenght;
+    public static EventManager InstanceEvent;
 
+    private void Awake()
+    {
+        InstanceEvent = this;
+    }
     void Start() 
     {
         StartCoroutine(TriggerEventDayPast());

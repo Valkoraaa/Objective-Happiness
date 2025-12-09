@@ -5,20 +5,22 @@ using Unity.Properties;
 using Unity.VisualScripting;
 using UnityEngine;
 
-public class Character : MonoBehaviour {
+public class Character : MonoBehaviour
+{
     /*public BuildingBaseClass job;
 	public BuildingBaseClass school;
 	public House house;*/
     public GameObject job;
     public GameObject house;
-	private GameManager gm;
+    private GameManager gm;
     public bool hasSkin = false;
     private float travelDuration = 1;
     private Dictionary<Renderer, Color> originalColors = new Dictionary<Renderer, Color>();
+    public EventManager em;
 
     [SerializeField] private GameObject[] meshes;
 
-	[SerializeField] private int foodAmount = 1; // The needed amount of food to survive
+    [SerializeField] private int foodAmount = 1; // The needed amount of food to survive
 
     public bool isTired = false;
 
@@ -28,7 +30,7 @@ public class Character : MonoBehaviour {
         job = null;
         house = null;
         //school = null;
-        gm = GameManager.Instance; // Reference to the game manager
+        //gm = GameManager.Instance; // Reference to the game manager
     }
     public void Init(GameObject actualJob, GameObject actualHouse)
     {
@@ -39,6 +41,13 @@ public class Character : MonoBehaviour {
         gm = GameManager.Instance; // Reference to the game manager
         transform.localScale = new Vector3(0.2f, 0.2f, 0.2f);
     }
+
+    private void Awake()
+    {
+        gm = GameManager.Instance;
+        em = EventManager.InstanceEvent;
+    }
+
 
     // Cycles through his day: goes to job, exhausts
     public IEnumerator CycleDay()
@@ -84,11 +93,12 @@ public class Character : MonoBehaviour {
 
     }
 
-	public void Die() {
+    public void Die()
+    {
         // Character dies
         // TODO: plays animation and despawns
         gm.ressources[3] -= 1;
-		Destroy(gameObject); // Self destruction
+        Destroy(gameObject); // Self destruction
     }
 
     public IEnumerator GoWork()
@@ -96,16 +106,25 @@ public class Character : MonoBehaviour {
         float t = 0f;
         if (job == null || job == gm.jobs[3])
         {
-            t += Time.deltaTime;
-            transform.position = Vector3.Lerp(transform.position, new Vector2(transform.position.x - 100, transform.position.y), t / travelDuration); //permet de cr�er un d�placement fluide
-            yield return null;
+            while (t < travelDuration)
+            {
+                if (!em.paused)
+                {
+                    t += Time.deltaTime;
+                    transform.position = Vector3.Lerp(transform.position, new Vector2(transform.position.x - 100, transform.position.y), t / travelDuration); //permet de cr�er un d�placement fluide
+                }
+                yield return null;
+            }
         }
         else
         {
             while (t < travelDuration)
             {
-                t += Time.deltaTime;
-                transform.position = Vector3.Lerp(transform.position, job.transform.position, t / travelDuration); //permet de cr�er un d�placement fluide
+                if (!em.paused)
+                {
+                    t += Time.deltaTime;
+                    transform.position = Vector3.Lerp(transform.position, job.transform.position, t / travelDuration); //permet de cr�er un d�placement fluide
+                }
                 yield return null;
             }
             gameObject.transform.localScale = new Vector3(0, 0, 0);
@@ -118,8 +137,11 @@ public class Character : MonoBehaviour {
         float t = 0f;
         while (t < travelDuration)
         {
-            t += Time.deltaTime;
-            transform.position = Vector3.Lerp(transform.position, house.transform.position, t / travelDuration);
+            if (!em.paused)
+            {
+                t += Time.deltaTime;
+                transform.position = Vector3.Lerp(transform.position, house.transform.position, t / travelDuration);
+            }
             yield return null;
         }
     }

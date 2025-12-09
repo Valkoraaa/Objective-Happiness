@@ -23,6 +23,7 @@ public class GameManager : MonoBehaviour
     private int[] peopleAtWork = {0,0,0,0}; // 0 = wood, 1 = rock, 2 = food, 3 - builders
     public static GameManager Instance;
     public Character changingChara;
+    private int tilesFree = 69;
 
     [SerializeField] private TextMeshProUGUI[] ressourcesText; // 0 = wood, 1 = rock, 2 = food, 3 = population
     [SerializeField] private TextMeshProUGUI[] peopleWorkingText; // 0 = wood, 1 = rock, 2 = food
@@ -67,13 +68,13 @@ public class GameManager : MonoBehaviour
                     Debug.Log("SchoolCliqu�");
                 }
             }
-            if(charaAlive.Count <= 1)
-            {
-                //loosegame
-            }
             if (ressources[3] >= 250)
             {
                 //wingame
+            }
+            else if (charaAlive.Count <= 1 || tilesFree<=0)
+            {
+                //loosegame
             }
         }
 
@@ -87,6 +88,12 @@ public class GameManager : MonoBehaviour
         // Counting builders number
         masonsNumber = masons.Count;
         masonsText.text = masonsNumber.ToString();
+    }
+
+    public int MapFull()
+    {
+        tilesFree -= 1;
+        return tilesFree;
     }
 
     public void ChangeJob(GameObject changeJob)

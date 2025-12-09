@@ -4,5 +4,11 @@
 EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
-  m_Scenes: []
+  m_Scenes:
+  - enabled: 1
+    path: Assets/Scenes/MainMenu.unity
+    guid: 04b2155b046a82449b2956038b55503a
+  - enabled: 1
+    path: Assets/Scenes/ValkoraScene.unity
+    guid: 6554b24c3f16827458d60fb20f70e9b9
   m_configObjects: {}

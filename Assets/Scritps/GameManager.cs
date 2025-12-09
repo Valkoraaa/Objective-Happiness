@@ -6,6 +6,7 @@ using Unity.Jobs;
 using UnityEngine;
 using UnityEngine.TextCore.Text;
 using UnityEngine.UI;
+using UnityEngine.UIElements;
 
 public class GameManager : MonoBehaviour
 {
@@ -24,6 +25,10 @@ public class GameManager : MonoBehaviour
     public static GameManager Instance;
     public Character changingChara;
     private int tilesFree = 69;
+    public EventManager em;
+    public Canvas winCanvas;
+    public Canvas loseCanvas;
+    public UnityEngine.UI.Slider prospertySlider;
 
     [SerializeField] private TextMeshProUGUI[] ressourcesText; // 0 = wood, 1 = rock, 2 = food, 3 = population
     [SerializeField] private TextMeshProUGUI[] peopleWorkingText; // 0 = wood, 1 = rock, 2 = food
@@ -35,6 +40,7 @@ public class GameManager : MonoBehaviour
     private void Awake()
     {
         Instance = this;
+        em = EventManager.InstanceEvent;
         for (int i = 0; i < 4; i++)
         {
             GameObject obj = Instantiate(characterPrefab);
@@ -47,6 +53,7 @@ public class GameManager : MonoBehaviour
     }
     void Update()
     {
+        prospertySlider.value = ressources[3];
         if (Input.GetMouseButtonDown(0)) //v�rifie si le joueur clique sur un objet ayant le tag constructible
         {
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
@@ -68,13 +75,17 @@ public class GameManager : MonoBehaviour
                     Debug.Log("SchoolCliqu�");
                 }
             }
-            if (ressources[3] >= 250)
+            if (ressources[3] >= 250) //win
             {
-                //wingame
+                em.paused = true;
+                ressources[3] = 0;
+                winCanvas.gameObject.SetActive(true);
             }
-            else if (charaAlive.Count <= 1 || tilesFree<=0)
+            else if (charaAlive.Count <= 1 || tilesFree<=0) //lose
             {
-                //loosegame
+                em.paused = true;
+                ressources[3] = 0;
+                loseCanvas.gameObject.SetActive(true);
             }
         }
 

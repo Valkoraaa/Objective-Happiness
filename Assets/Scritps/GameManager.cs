@@ -29,6 +29,7 @@ public class GameManager : MonoBehaviour
     public Canvas winCanvas;
     public Canvas loseCanvas;
     public UnityEngine.UI.Slider prospertySlider;
+    private int nightCount = 0;
 
     [SerializeField] private TextMeshProUGUI[] ressourcesText; // 0 = wood, 1 = rock, 2 = food, 3 = population
     [SerializeField] private TextMeshProUGUI[] peopleWorkingText; // 0 = wood, 1 = rock, 2 = food
@@ -180,7 +181,7 @@ public class GameManager : MonoBehaviour
                 }
             }
         }
-        if (charaAlive.Count >= 2)
+        if (charaAlive.Count >= 2 && nightCount%3==0)
         {
             GameObject obj = Instantiate(characterPrefab);
             Character c = obj.GetComponent<Character>();
@@ -192,6 +193,7 @@ public class GameManager : MonoBehaviour
 
             charaAlive.Add(c);
         }
+        nightCount++;
         
         foreach (House house in houses)
         {

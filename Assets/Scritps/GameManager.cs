@@ -26,6 +26,7 @@ public class GameManager : MonoBehaviour
 
     [SerializeField] private TextMeshProUGUI[] ressourcesText; // 0 = wood, 1 = rock, 2 = food, 3 = population
     [SerializeField] private TextMeshProUGUI[] peopleWorkingText; // 0 = wood, 1 = rock, 2 = food
+    [SerializeField] private TextMeshProUGUI masonsText;
     
     public List<Character> masonNumber;
 
@@ -76,12 +77,16 @@ public class GameManager : MonoBehaviour
             }
         }
 
-        for(int i = 0; i < 3; i++)
+        for (int i = 0; i < 3; i++)
         {
             // Ressources labels update
             ressourcesText[i].text = ressources[i].ToString(); // Showing the ressources number
             ressourcesText[3].text = charaAlive.Count.ToString(); // Show how many workers are for this job
         }
+        
+        // Counting builders number
+        masonsNumber = masons.Count;
+        masonsText.text = masonsNumber.ToString();
     }
 
     public void ChangeJob(GameObject changeJob)
@@ -161,7 +166,6 @@ public class GameManager : MonoBehaviour
         {
             GameObject obj = Instantiate(characterPrefab);
             Character c = obj.GetComponent<Character>();
-            masonsNumber = masons.Count;
 
             c.Init(null, null);   // temporary?
             GameObject homeLess = Instantiate(skin[4], c.transform);

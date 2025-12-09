@@ -32,14 +32,14 @@ public class BuildingTerrain : MonoBehaviour
                 select.SetActive(false);
             }
         }
-        if (Input.GetMouseButtonDown(0)) //vérifie si le joueur clique sur un objet ayant le tag constructible
+        if (Input.GetMouseButtonDown(0)) //vï¿½rifie si le joueur clique sur un objet ayant le tag constructible
         {
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             RaycastHit hit;
 
             if (Physics.Raycast(ray, out hit))
             {
-                // Vérifie le tag de l’objet touché
+                // Vï¿½rifie le tag de lï¿½objet touchï¿½
                 if (hit.collider.CompareTag("constructible") && wantsToBuild)
                 {
                     Debug.Log("check");
@@ -50,35 +50,35 @@ public class BuildingTerrain : MonoBehaviour
                         {
                             Debug.Log("check2");
                             bool canBuild = false;
-                            if (i == 0 && gm.ressources[0]>=30 && gm.ressources[1]>=20 && gm.masonsNumber>=3)
+                            if (i == 0 && gm.ressources[0]>=30 && gm.ressources[1]>=20 && gm.masonsNumber>=3) // Farm
                             {
                                 gm.ressources[0]-=30;
                                 gm.ressources[1]-=20;
                                 canBuild = true;
                                 gm.masonsNumber -= 3;
                             }
-                            else if (i == 1 && gm.ressources[0]>=10 && gm.ressources[1]>= 10 && gm.masonsNumber >= 1)
+                            else if (i == 1 && gm.ressources[0]>=10 && gm.ressources[1]>= 10 && gm.masonsNumber >= 1) // House
                             {
                                 gm.ressources[0]-=10;
                                 gm.ressources[1]-=10;
                                 canBuild = true;
                                 gm.masonsNumber -= 1;
                             }
-                            else if (i == 2 && gm.ressources[0] >= 30 && gm.ressources[1] >= 30 && gm.masonsNumber >= 2)
+                            else if (i == 2 && gm.ressources[0] >= 30 && gm.ressources[1] >= 30 && gm.masonsNumber >= 2) // Library
                             {
                                 gm.ressources[0] -= 30;
                                 gm.ressources[1] -= 30;
                                 canBuild = true;
                                 gm.masonsNumber -= 2;
                             }
-                            else if (i == 3 && gm.ressources[0] >= 50 && gm.ressources[1] >= 50 && gm.masonsNumber >= 3)
+                            else if (i == 3 && gm.ressources[0] >= 50 && gm.ressources[1] >= 50 && gm.masonsNumber >= 3) // Museum
                             {
                                 gm.ressources[0] -= 50;
                                 gm.ressources[1] -= 50;
                                 canBuild = true;
                                 gm.masonsNumber -= 3;
                             }
-                            else if (i == 4 && gm.ressources[0] >= 30 && gm.ressources[1] >= 30 && gm.masonsNumber >= 1)
+                            else if (i == 4 && gm.ressources[0] >= 30 && gm.ressources[1] >= 30 && gm.masonsNumber >= 1) // School
                             {
                                 gm.ressources[0] -= 30;
                                 gm.ressources[1] -= 30;
@@ -87,7 +87,7 @@ public class BuildingTerrain : MonoBehaviour
                             }
                             if(canBuild)
                             {
-                                Debug.Log("Objet constructible cliqué : " + hit.collider.name);
+                                Debug.Log("Objet constructible cliquï¿½ : " + hit.collider.name);
                                 Instantiate(choosenBuilding, hit.collider.transform.position, Quaternion.identity);
                                 hit.collider.tag = "nonConstructible";
                             }

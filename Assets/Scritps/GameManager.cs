@@ -88,6 +88,10 @@ public class GameManager : MonoBehaviour
                 loseCanvas.gameObject.SetActive(true);
             }
         }
+        
+        // Counting builders number
+        //masonsNumber = masons.Count;
+        peopleWorkingText[3].text = masonsNumber.ToString();
 
         for (int i = 0; i < 3; i++)
         {
@@ -95,10 +99,7 @@ public class GameManager : MonoBehaviour
             ressourcesText[i].text = ressources[i].ToString(); // Showing the ressources number
             ressourcesText[3].text = charaAlive.Count.ToString(); // Show how many workers are for this job
         }
-        
-        // Counting builders number
-        masonsNumber = masons.Count;
-        masonsText.text = masonsNumber.ToString();
+        peopleWorkingText[3].text = masonsNumber.ToString();
     }
 
     public int MapFull()
@@ -175,6 +176,7 @@ public class GameManager : MonoBehaviour
                 if(chara.job == jobs[3] && !masons.Contains(chara))
                 {
                     masons.Add(chara);
+                    masonsNumber = masons.Count;
                 }
             }
         }

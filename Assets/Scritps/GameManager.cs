@@ -21,7 +21,7 @@ public class GameManager : MonoBehaviour
     public int masonsNumber;
     private bool charaSelected = false;
     public SlidePannel sp;
-    private int[] peopleAtWork = {0,0,0,0}; // 0 = wood, 1 = rock, 2 = food, 3 - builders
+    private int[] peopleAtWork = {1,1,1,1}; // 0 = wood, 1 = rock, 2 = food, 3 - builders
     public static GameManager Instance;
     public Character changingChara;
     private int tilesFree = 69;
@@ -35,7 +35,6 @@ public class GameManager : MonoBehaviour
     [SerializeField] private TextMeshProUGUI masonsText;
     
     public List<Character> masonNumber;
-
 
     private void Awake()
     {
@@ -120,6 +119,8 @@ public class GameManager : MonoBehaviour
         {
             if (build == changeJob)
             {
+                peopleAtWork[i] += 1;
+                peopleWorkingText[i].text = peopleAtWork[i].ToString();
                 break;
             }
             i++;
@@ -127,8 +128,6 @@ public class GameManager : MonoBehaviour
         GameObject newModel = Instantiate(skin[i], changingChara.transform);
         changingChara.hasSkin = true;
     }
-
-
 
     void OnEnable() { EventManager.EndOfDay += Evening; }
     void OnDisable() { EventManager.EndOfDay -= Evening; }
@@ -148,9 +147,6 @@ public class GameManager : MonoBehaviour
                     ressourcesText[i].text = ressources[i].ToString(); // Showing the ressources number
                     ressourcesText[3].text = charaAlive.Count.ToString(); // Show how many workers are for this job
 
-                    peopleAtWork[i] += 1;
-                    peopleWorkingText[i].text = peopleAtWork[i].ToString();
-
                     //GameObject newModel = Instantiate(skin[i], chara.transform);
 
                     ressources[i] += 2;
@@ -168,7 +164,8 @@ public class GameManager : MonoBehaviour
                     newModel.transform.localRotation = Quaternion.identity; ------useless for now, delete it in the end if not used
                     newModel.transform.localScale = Vector3.one;*/
 
-                    peopleAtWork[i] = 0; // Reinitialisation of people working at specific place
+                    peopleAtWork[i] = 1; // Reinitialisation of people working at specific place
+                    peopleWorkingText[i].text = peopleAtWork[i].ToString();
                 }
                 else if (!chara.hasSkin && i == jobs.Length - 1)
                 {

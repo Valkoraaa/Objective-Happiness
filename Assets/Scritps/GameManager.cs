@@ -147,6 +147,9 @@ public class GameManager : MonoBehaviour
         c.Init(null, null);   // temporary?
         GameObject homeLess = Instantiate(skin[4], c.transform);
         c.hasSkin = true;
+        c.transform.position = new Vector3(UnityEngine.Random.Range(-3f, 3f), 0f, UnityEngine.Random.Range(-0.4f, 6.5f));
+
+        charaAlive.Add(c);
         foreach (House house in houses)
         {
             foreach(Character chara in charaAlive)

@@ -14,6 +14,7 @@ public class Character : MonoBehaviour {
 	private GameManager gm;
     public bool hasSkin = false;
     private float travelDuration = 1;
+    private Dictionary<Renderer, Color> originalColors = new Dictionary<Renderer, Color>();
 
     [SerializeField] private GameObject[] meshes;
 
@@ -48,10 +49,31 @@ public class Character : MonoBehaviour {
         {
             isTired = true;
             gm.ressources[3] -= 1;
+            Renderer[] rends = GetComponentsInChildren<Renderer>(true);
+
+            originalColors.Clear(); // au cas où
+
+            foreach (Renderer r in rends)
+            {
+                originalColors[r] = r.material.color; // on stocke la couleur d'origine
+                r.material.color = Color.red;         // couleur temporaire
+            }
+
 
             // Seeks for house
         }
-        else StartCoroutine(GoHouse()); //va a sa maison
+        else
+        {
+            foreach (Renderer r in originalColors.Keys)
+            {
+                if (r != null)
+                {
+                    r.material.color = originalColors[r];
+                }
+            }
+
+            StartCoroutine(GoHouse());
+        }//va a sa maison
         yield return new WaitForSeconds(5f); //------- � ajuster : 1/4 du jour d�fini dans eventmanager
         if (gm.ressources[2] > 0)
             gm.ressources[2] -= foodAmount;
@@ -84,9 +106,9 @@ public class Character : MonoBehaviour {
             {
                 t += Time.deltaTime;
                 transform.position = Vector3.Lerp(transform.position, job.transform.position, t / travelDuration); //permet de cr�er un d�placement fluide
-                gameObject.transform.localScale = new Vector3(0, 0, 0);
                 yield return null;
             }
+            gameObject.transform.localScale = new Vector3(0, 0, 0);
         }
     }
     public IEnumerator GoHouse()

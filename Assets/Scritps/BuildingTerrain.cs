@@ -54,6 +54,7 @@ public class BuildingTerrain : MonoBehaviour
                             {
                                 gm.ressources[0]-=30;
                                 gm.ressources[1]-=20;
+                                gm.ressources[2] += 100;
                                 canBuild = true;
                                 gm.masonsNumber -= 3;
                             }
@@ -70,11 +71,13 @@ public class BuildingTerrain : MonoBehaviour
                                 gm.ressources[1] -= 30;
                                 canBuild = true;
                                 gm.masonsNumber -= 2;
+                                gm.ressources[3] += 40;
                             }
                             else if (i == 3 && gm.ressources[0] >= 50 && gm.ressources[1] >= 50 && gm.masonsNumber >= 3) // Museum
                             {
                                 gm.ressources[0] -= 50;
                                 gm.ressources[1] -= 50;
+                                gm.ressources[3] += 75;
                                 canBuild = true;
                                 gm.masonsNumber -= 3;
                             }

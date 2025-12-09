@@ -6,7 +6,7 @@ using static UnityEngine.GraphicsBuffer;
 public class SlidePannel : MonoBehaviour
 {
     public float distance = 400f;
-    public float duration = 1f;
+    public float duration = 0.3f;
 
     private float elapsed = 0f;
     private Vector3 startPos;

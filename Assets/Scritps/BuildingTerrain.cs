@@ -13,6 +13,7 @@ public class BuildingTerrain : MonoBehaviour
     private GameObject choosenBuilding;
     private bool wantsToBuild = false;
     private GameManager gm;
+    public GameObject[] selectedInfo;
     // Start is called before the first frame update
     void Start()
     {
@@ -26,6 +27,10 @@ public class BuildingTerrain : MonoBehaviour
         {
             wantsToBuild = false;
             Debug.Log("falseBuild");
+            foreach (GameObject select in selectedInfo)
+            {
+                select.SetActive(false);
+            }
         }
         if (Input.GetMouseButtonDown(0)) //vérifie si le joueur clique sur un objet ayant le tag constructible
         {

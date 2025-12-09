@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -72,6 +73,21 @@ public class GameManager : MonoBehaviour
     {
         changingChara.job = changeJob;
         changingChara.hasSkin = false;
+        foreach (Transform child in changingChara.transform)
+        {
+            Destroy(child.gameObject);
+        }
+        int i = 0;
+        foreach (GameObject build in jobs)
+        {
+            if (build == changeJob)
+            {
+                break;
+            }
+            i++;
+        }
+        GameObject newModel = Instantiate(skin[i], changingChara.transform);
+        changingChara.hasSkin = true;
     }
 
 
@@ -95,12 +111,16 @@ public class GameManager : MonoBehaviour
                     peopleAtWork[i] += 1;
                     peopleWorkingText[i].text = peopleAtWork[i].ToString();
 
-                    GameObject newModel = Instantiate(skin[i], chara.transform);
+                    //GameObject newModel = Instantiate(skin[i], chara.transform);
 
                     ressources[i] += 2;
                     if(!chara.hasSkin)
                     {
-                        newModel = Instantiate(skin[i], chara.transform);
+                        foreach (Transform child in chara.transform)
+                        {
+                            Destroy(child.gameObject);
+                        }
+                        GameObject newModel = Instantiate(skin[i], chara.transform);
                         chara.hasSkin = true;
                     }
 
@@ -125,7 +145,9 @@ public class GameManager : MonoBehaviour
         masonsNumber = masons.Count;
 
         c.Init(null, null);   // temporary?
-        foreach(House house in houses)
+        GameObject homeLess = Instantiate(skin[4], c.transform);
+        c.hasSkin = true;
+        foreach (House house in houses)
         {
             foreach(Character chara in charaAlive)
             {

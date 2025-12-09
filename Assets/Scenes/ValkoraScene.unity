@@ -13535,6 +13535,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 84da3038f7e23184da03b0d14e9d286b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  selectedInfo:
+  - {fileID: 1665389375}
+  - {fileID: 749387500}
+  - {fileID: 730437512}
+  - {fileID: 547775922}
+  - {fileID: 2077662744}
 --- !u!4 &1424571997
 Transform:
   m_ObjectHideFlags: 0
@@ -13571,10 +13577,11 @@ MonoBehaviour:
   - {fileID: 1576134245}
   - {fileID: 1132785842}
   skin:
-  - {fileID: 919132149155446097, guid: 62807e515c0d423418e89c8afee00ec1, type: 3}
-  - {fileID: 919132149155446097, guid: 8438d940a42588e44a264cfd98291d97, type: 3}
-  - {fileID: 919132149155446097, guid: c862834b3e0b7754fb820fbdd53bc0fa, type: 3}
-  - {fileID: 919132149155446097, guid: fce1f2f795ea4854ca660af56ff77588, type: 3}
+  - {fileID: 918821600824589584, guid: c0b6ddabe2e62c94faa585d18ebc712a, type: 3}
+  - {fileID: 7093452653308702347, guid: 3ed57a855407bb0429ae9778c346dd57, type: 3}
+  - {fileID: 7419223016763178745, guid: 96b5bdd31f40b344c86324b6c381e09b, type: 3}
+  - {fileID: 3364606588124332450, guid: c5758bb91b7780b4bb41922c25500875, type: 3}
+  - {fileID: 8336397197020392797, guid: 2a6701b9b71140f47b9db41d350f6668, type: 3}
   buildings:
   - {fileID: 1503573391699548202, guid: bbb1552e0ca7c3040b4bb6b5670f8f56, type: 3}
   - {fileID: 6171107569469312729, guid: 315d0cf915a70a4419f5eab8d1499977, type: 3}
@@ -16109,7 +16116,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   distance: 200
-  duration: 1
+  duration: 0.3
 --- !u!1 &1720109292 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 817d2c42be4fa814eb6cafe95099bb5f, type: 3}

@@ -84,17 +84,14 @@ public class Character : MonoBehaviour {
             {
                 t += Time.deltaTime;
                 transform.position = Vector3.Lerp(transform.position, job.transform.position, t / travelDuration); //permet de cr�er un d�placement fluide
+                gameObject.transform.localScale = new Vector3(0, 0, 0);
                 yield return null;
             }
         }
-
-        gameObject.transform.localScale = new Vector3(0,0,0);
-        Debug.Log("Character: works");
     }
     public IEnumerator GoHouse()
     {
         gameObject.transform.localScale = new Vector3(0.2f, 0.2f, 0.2f);
-        Debug.Log("Character: goes home");
 
         float t = 0f;
         while (t < travelDuration)

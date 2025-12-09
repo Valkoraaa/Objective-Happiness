@@ -67,6 +67,13 @@ public class GameManager : MonoBehaviour
                 }
             }
         }
+
+        for(int i = 0; i < 3; i++)
+        {
+            // Ressources labels update
+            ressourcesText[i].text = ressources[i].ToString(); // Showing the ressources number
+            ressourcesText[3].text = charaAlive.Count.ToString(); // Show how many workers are for this job
+        }
     }
 
     public void ChangeJob(GameObject changeJob)
@@ -105,6 +112,8 @@ public class GameManager : MonoBehaviour
                 if (chara.job == jobs[i] && chara.job != jobs[jobs.Length -1])
                 {
                     ressources[i] += 2; // Adding ressources
+
+                    // Ressources labels update
                     ressourcesText[i].text = ressources[i].ToString(); // Showing the ressources number
                     ressourcesText[3].text = charaAlive.Count.ToString(); // Show how many workers are for this job
 

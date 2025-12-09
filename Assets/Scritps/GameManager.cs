@@ -66,6 +66,14 @@ public class GameManager : MonoBehaviour
                     Debug.Log("SchoolCliqu�");
                 }
             }
+            if(charaAlive.Count <= 1)
+            {
+                //loosegame
+            }
+            if (ressources[3] >= 250)
+            {
+                //wingame
+            }
         }
 
         for(int i = 0; i < 3; i++)
@@ -149,16 +157,20 @@ public class GameManager : MonoBehaviour
                 }
             }
         }
-        GameObject obj = Instantiate(characterPrefab);
-        Character c = obj.GetComponent<Character>();
-        masonsNumber = masons.Count;
+        if (charaAlive.Count >= 2)
+        {
+            GameObject obj = Instantiate(characterPrefab);
+            Character c = obj.GetComponent<Character>();
+            masonsNumber = masons.Count;
 
-        c.Init(null, null);   // temporary?
-        GameObject homeLess = Instantiate(skin[4], c.transform);
-        c.hasSkin = true;
-        c.transform.position = new Vector3(UnityEngine.Random.Range(-3f, 3f), 0f, UnityEngine.Random.Range(-0.4f, 6.5f));
+            c.Init(null, null);   // temporary?
+            GameObject homeLess = Instantiate(skin[4], c.transform);
+            c.hasSkin = true;
+            c.transform.position = new Vector3(UnityEngine.Random.Range(-3f, 3f), 0f, UnityEngine.Random.Range(-0.4f, 6.5f));
 
-        charaAlive.Add(c);
+            charaAlive.Add(c);
+        }
+        
         foreach (House house in houses)
         {
             foreach(Character chara in charaAlive)

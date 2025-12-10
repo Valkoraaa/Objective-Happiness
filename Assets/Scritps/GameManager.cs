@@ -183,7 +183,7 @@ public class GameManager : MonoBehaviour
                     newModel.transform.localRotation = Quaternion.identity; ------useless for now, delete it in the end if not used
                     newModel.transform.localScale = Vector3.one;*/
 
-                    peopleAtWork[i] = 1; // Reinitialisation of people working at specific place
+                    //peopleAtWork[i] = 1; // Reinitialisation of people working at specific place
                     peopleWorkingText[i].text = peopleAtWork[i].ToString();
                 }
                 else if (!chara.hasSkin && i == jobs.Length - 1)

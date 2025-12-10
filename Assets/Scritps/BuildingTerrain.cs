@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class BuildingTerrain : MonoBehaviour
 {
@@ -15,6 +16,8 @@ public class BuildingTerrain : MonoBehaviour
     private GameManager gm;
     public GameObject[] selectedInfo;
     public GameObject escapeInfo;
+    public GameObject failParticle;
+    public GameObject succedParticle;
     // Start is called before the first frame update
     void Start()
     {
@@ -36,6 +39,8 @@ public class BuildingTerrain : MonoBehaviour
         }
         if (Input.GetMouseButtonDown(0)) //v�rifie si le joueur clique sur un objet ayant le tag constructible
         {
+            if (EventSystem.current.IsPointerOverGameObject())
+                return;
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             RaycastHit hit;
 
@@ -97,11 +102,9 @@ public class BuildingTerrain : MonoBehaviour
                             }
                             if(canBuild)
                             {
-                                Debug.Log("Objet constructible cliqu� : " + hit.collider.name);
-                                Instantiate(choosenBuilding, hit.collider.transform.position, Quaternion.identity);
-                                hit.collider.tag = "nonConstructible";
+                                StartCoroutine(Build(hit));
                             }
-                            else { Debug.Log("erreur"); }
+                            else { gm.audioSource.PlayOneShot(gm.failSound); Instantiate(failParticle, hit.collider.transform.position, Quaternion.identity); }
                         }
                     }
                 }
@@ -114,5 +117,17 @@ public class BuildingTerrain : MonoBehaviour
         choosenBuilding = building;
         wantsToBuild = true;
         escapeInfo.SetActive(true);
+        gm.audioSource.PlayOneShot(gm.clickSound);
+    }
+
+    private IEnumerator Build(RaycastHit hit)
+    {
+        gm.audioSource.PlayOneShot(gm.buildSound);
+        Instantiate(succedParticle, new Vector3(hit.collider.transform.position.x, hit.collider.transform.position.y + 1, hit.collider.transform.position.z - 1f), Quaternion.identity);
+        yield return new WaitForSeconds(0.5f);
+        Debug.Log("Objet constructible cliqu� : " + hit.collider.name);
+        Instantiate(choosenBuilding, hit.collider.transform.position, Quaternion.identity);
+        hit.collider.tag = "nonConstructible";
+        
     }
 }

@@ -83,7 +83,7 @@ public class Character : MonoBehaviour
 
             StartCoroutine(GoHouse());
         }//va a sa maison
-        yield return new WaitForSeconds(5f); //------- � ajuster : 1/4 du jour d�fini dans eventmanager
+        yield return new WaitForSeconds(2.5f); //------- � ajuster : 1/4 du jour d�fini dans eventmanager
         if (gm.ressources[2] > 0)
             gm.ressources[2] -= foodAmount;
         else
@@ -104,6 +104,8 @@ public class Character : MonoBehaviour
     public IEnumerator GoWork()
     {
         float t = 0f;
+        Vector3 startPos = transform.position;
+        Vector3 endPos = new Vector3(startPos.x - 0.4f, startPos.y, startPos.z);
         if (job == null || job == gm.jobs[3])
         {
             while (t < travelDuration)
@@ -111,7 +113,7 @@ public class Character : MonoBehaviour
                 if (!em.paused)
                 {
                     t += Time.deltaTime;
-                    transform.position = Vector3.Lerp(transform.position, new Vector2(transform.position.x - 100, transform.position.y), t / travelDuration); //permet de cr�er un d�placement fluide
+                    transform.position = Vector3.Lerp(startPos, endPos, t / travelDuration); //permet de cr�er un d�placement fluide
                 }
                 yield return null;
             }
@@ -123,7 +125,7 @@ public class Character : MonoBehaviour
                 if (!em.paused)
                 {
                     t += Time.deltaTime;
-                    transform.position = Vector3.Lerp(transform.position, job.transform.position, t / travelDuration); //permet de cr�er un d�placement fluide
+                    transform.position = Vector3.Lerp(startPos, job.transform.position, t / travelDuration); //permet de cr�er un d�placement fluide
                 }
                 yield return null;
             }
@@ -133,14 +135,14 @@ public class Character : MonoBehaviour
     public IEnumerator GoHouse()
     {
         gameObject.transform.localScale = new Vector3(0.2f, 0.2f, 0.2f);
-
+        Vector3 startPos = transform.position;
         float t = 0f;
         while (t < travelDuration)
         {
             if (!em.paused)
             {
                 t += Time.deltaTime;
-                transform.position = Vector3.Lerp(transform.position, house.transform.position, t / travelDuration);
+                transform.position = Vector3.Lerp(startPos, house.transform.position, t / travelDuration);
             }
             yield return null;
         }

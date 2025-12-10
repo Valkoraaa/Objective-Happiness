@@ -10,11 +10,14 @@ using UnityEngine.UIElements;
 
 public class GameManager : MonoBehaviour
 {
+    [Header("Character related")]
     public GameObject characterPrefab;
     public List<Character> charaAlive;
     public List<House> houses;
     public GameObject[] jobs;   
     public GameObject[] skin; // a assigner de la meme facon que l augmentation des ressources
+
+    [Header("Game related")]
     public GameObject[] buildings;
     public int[] ressources; // 0 = wood, 1 = rock, 2 = food, 3 = prosperity
     private List<Character> masons = new List<Character>();
@@ -26,10 +29,20 @@ public class GameManager : MonoBehaviour
     public Character changingChara;
     private int tilesFree = 69;
     public EventManager em;
+    private int nightCount = 0;
+
+    [Header("UI")]
     public Canvas winCanvas;
     public Canvas loseCanvas;
     public UnityEngine.UI.Slider prospertySlider;
-    private int nightCount = 0;
+
+    [Header("Sound")]
+    public AudioSource audioSource;
+    public AudioClip clickSound;
+    public AudioClip winSound;
+    public AudioClip loseSound;
+    public AudioClip buildSound;
+    public AudioClip failSound;
 
     [SerializeField] private TextMeshProUGUI[] ressourcesText; // 0 = wood, 1 = rock, 2 = food, 3 = population
     [SerializeField] private TextMeshProUGUI[] peopleWorkingText; // 0 = wood, 1 = rock, 2 = food
@@ -67,12 +80,14 @@ public class GameManager : MonoBehaviour
                     charaSelected = true;
                     Debug.Log("charaCliqu�");
                     changingChara = hit.collider.GetComponent<Character>();
+                    audioSource.PlayOneShot(clickSound);
                 }
                 else if (hit.collider.CompareTag("school") && charaSelected)
                 {
                     charaSelected = false;
                     sp.Move(true);
                     Debug.Log("SchoolCliqu�");
+                    audioSource.PlayOneShot(clickSound);
                 }
             }
             if (ressources[3] >= 250) //win
@@ -80,12 +95,14 @@ public class GameManager : MonoBehaviour
                 em.paused = true;
                 ressources[3] = 0;
                 winCanvas.gameObject.SetActive(true);
+                audioSource.PlayOneShot(winSound);
             }
             else if (charaAlive.Count <= 1 || tilesFree<=0) //lose
             {
                 em.paused = true;
                 ressources[3] = 0;
                 loseCanvas.gameObject.SetActive(true);
+                audioSource.PlayOneShot(loseSound);
             }
         }
         
@@ -176,8 +193,9 @@ public class GameManager : MonoBehaviour
                 if(chara.job == jobs[3] && !masons.Contains(chara))
                 {
                     masons.Add(chara);
-                    masonsNumber = masons.Count;
+                    
                 }
+                masonsNumber = masons.Count;
             }
         }
         if (charaAlive.Count >= 2 && nightCount%3==0)

@@ -1,5 +1,3 @@
-Lien Git : https://github.com/Valkoraaa/Objective-Happiness
-
 > DEROULEMENT DU JEU
 
 Gérez votre population en assignant différents métiers à vos habitants, en veillant au bien être de chacun et en construisant des bâtiments qui vous mèneront à la victoire!  Le jeu se base sur un cycle Jour/nuit : le jour, vos habitants travaillent, et le soir, ils sont fatigués et ont faim. Assurez vous que chaque habitant à sa propre maison et a de quoi se nourrir!

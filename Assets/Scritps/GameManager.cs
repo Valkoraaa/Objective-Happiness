@@ -15,7 +15,7 @@ public class GameManager : MonoBehaviour
     public List<Character> charaAlive;
     public List<House> houses;
     public GameObject[] jobs;   
-    public GameObject[] skin; // a assigner de la meme facon que l augmentation des ressources
+    public GameObject[] skin;
 
     [Header("Game related")]
     public GameObject[] buildings;
@@ -58,8 +58,6 @@ public class GameManager : MonoBehaviour
         {
             GameObject obj = Instantiate(characterPrefab);
             Character c = obj.GetComponent<Character>();
-
-            //c.Init(jobs[i], c.house.gameObject);   // temporary?
             c.Init(jobs[i], null);
             charaAlive.Add(c);
         }
@@ -67,14 +65,14 @@ public class GameManager : MonoBehaviour
     void Update()
     {
         prospertySlider.value = ressources[3];
-        if (Input.GetMouseButtonDown(0)) //v�rifie si le joueur clique sur un objet ayant le tag constructible
+        if (Input.GetMouseButtonDown(0)) 
         {
-            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition); //check where the player clicks
             RaycastHit hit;
 
             if (Physics.Raycast(ray, out hit))
             {
-                // V�rifie le tag de l�objet touch�
+                // Verify tag of hitten object
                 if (hit.collider.CompareTag("character"))
                 {
                     charaSelected = true;
@@ -106,8 +104,6 @@ public class GameManager : MonoBehaviour
             }
         }
         
-        // Counting builders number
-        //masonsNumber = masons.Count;
         peopleWorkingText[3].text = masonsNumber.ToString();
 
         for (int i = 0; i < 3; i++)
@@ -156,7 +152,7 @@ public class GameManager : MonoBehaviour
         foreach (Character chara in charaAlive)
         {
             StartCoroutine(chara.CycleDay()); //enable end of day script for each characters
-            for (int i = 0;i < jobs.Length; i++) //-1 for the mason
+            for (int i = 0;i < jobs.Length; i++)
             {
                 if (chara.job == jobs[i] && chara.job != jobs[jobs.Length -1])
                 {
@@ -166,10 +162,8 @@ public class GameManager : MonoBehaviour
                     ressourcesText[i].text = ressources[i].ToString(); // Showing the ressources number
                     ressourcesText[3].text = charaAlive.Count.ToString(); // Show how many workers are for this job
 
-                    //GameObject newModel = Instantiate(skin[i], chara.transform);
-
                     ressources[i] += 2;
-                    if(!chara.hasSkin)
+                    if(!chara.hasSkin) //enable skin changes for new work or if someone is no longer tired
                     {
                         foreach (Transform child in chara.transform)
                         {
@@ -178,12 +172,6 @@ public class GameManager : MonoBehaviour
                         GameObject newModel = Instantiate(skin[i], chara.transform);
                         chara.hasSkin = true;
                     }
-
-                    /*newModel.transform.localPosition = Vector3.zero;
-                    newModel.transform.localRotation = Quaternion.identity; ------useless for now, delete it in the end if not used
-                    newModel.transform.localScale = Vector3.one;*/
-
-                    //peopleAtWork[i] = 1; // Reinitialisation of people working at specific place
                     peopleWorkingText[i].text = peopleAtWork[i].ToString();
                 }
                 else if (!chara.hasSkin && i == jobs.Length - 1)
@@ -195,10 +183,10 @@ public class GameManager : MonoBehaviour
                     masons.Add(chara);
                     
                 }
-                masonsNumber = masons.Count;
+                masonsNumber = masons.Count; //reset available masons number
             }
         }
-        if (charaAlive.Count >= 2 && nightCount%3==0)
+        if (charaAlive.Count >= 2 && nightCount%3==0) //spawn a new character every 3 nights
         {
             GameObject obj = Instantiate(characterPrefab);
             Character c = obj.GetComponent<Character>();
@@ -212,7 +200,7 @@ public class GameManager : MonoBehaviour
         }
         nightCount++;
         
-        foreach (House house in houses)
+        foreach (House house in houses) //give houses to characters that don t have one
         {
             foreach(Character chara in charaAlive)
             {

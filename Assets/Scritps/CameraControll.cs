@@ -12,10 +12,6 @@ public class CameraControll : MonoBehaviour
     public float limitZoomIn;
     public float limitZoomOut;
     private float scroll;
-    void Start()
-    {
-        
-    }
 
     // Update is called once per frame
     void Update()

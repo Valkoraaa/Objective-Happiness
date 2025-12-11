@@ -7,9 +7,6 @@ using UnityEngine;
 
 public class Character : MonoBehaviour
 {
-    /*public BuildingBaseClass job;
-	public BuildingBaseClass school;
-	public House house;*/
     public GameObject job;
     public GameObject house;
     private GameManager gm;
@@ -17,8 +14,6 @@ public class Character : MonoBehaviour
     private float travelDuration = 1;
     private Dictionary<Renderer, Color> originalColors = new Dictionary<Renderer, Color>();
     public EventManager em;
-
-    [SerializeField] private GameObject[] meshes;
 
     [SerializeField] private int foodAmount = 1; // The needed amount of food to survive
 
@@ -29,13 +24,9 @@ public class Character : MonoBehaviour
     {
         job = null;
         house = null;
-        //school = null;
-        //gm = GameManager.Instance; // Reference to the game manager
     }
     public void Init(GameObject actualJob, GameObject actualHouse)
     {
-        //job = actualJob.GetComponent<BuildingBaseClass>(); // Applying scripts
-        //house = actualHouse.GetComponent<House>();
         job = actualJob;
         house = actualHouse;
         gm = GameManager.Instance; // Reference to the game manager
@@ -57,15 +48,15 @@ public class Character : MonoBehaviour
         if (house == null) // Doesn't job if he doesn't have a house
         {
             isTired = true;
-            gm.ressources[3] -= 1;
+            gm.ressources[3] -= 3;
             Renderer[] rends = GetComponentsInChildren<Renderer>(true);
 
-            originalColors.Clear(); // au cas où
+            originalColors.Clear();
 
             foreach (Renderer r in rends)
             {
-                originalColors[r] = r.material.color; // on stocke la couleur d'origine
-                r.material.color = Color.red;         // couleur temporaire
+                originalColors[r] = r.material.color; // stock original colors
+                r.material.color = Color.red;         // become red if tired
             }
 
 
@@ -82,8 +73,8 @@ public class Character : MonoBehaviour
             }
 
             StartCoroutine(GoHouse());
-        }//va a sa maison
-        yield return new WaitForSeconds(2.5f); //------- � ajuster : 1/4 du jour d�fini dans eventmanager
+        }
+        yield return new WaitForSeconds(2.5f); //------- to adjust : 1/4 of daylenght
         if (gm.ressources[2] > 0)
             gm.ressources[2] -= foodAmount;
         else
@@ -96,9 +87,9 @@ public class Character : MonoBehaviour
     public void Die()
     {
         // Character dies
-        // TODO: plays animation and despawns
-        gm.ressources[3] -= 1;
-        Destroy(gameObject); // Self destruction
+        Instantiate(em.dieParticles, transform.position, Quaternion.identity);
+        gm.ressources[3] -= 10;
+        Destroy(gameObject);
     }
 
     public IEnumerator GoWork()
@@ -110,10 +101,10 @@ public class Character : MonoBehaviour
         {
             while (t < travelDuration)
             {
-                if (!em.paused)
+                if (!em.paused) //check for pause
                 {
                     t += Time.deltaTime;
-                    transform.position = Vector3.Lerp(startPos, endPos, t / travelDuration); //permet de cr�er un d�placement fluide
+                    transform.position = Vector3.Lerp(startPos, endPos, t / travelDuration); //fuild movement
                 }
                 yield return null;
             }
@@ -125,7 +116,7 @@ public class Character : MonoBehaviour
                 if (!em.paused)
                 {
                     t += Time.deltaTime;
-                    transform.position = Vector3.Lerp(startPos, job.transform.position, t / travelDuration); //permet de cr�er un d�placement fluide
+                    transform.position = Vector3.Lerp(startPos, job.transform.position, t / travelDuration);
                 }
                 yield return null;
             }

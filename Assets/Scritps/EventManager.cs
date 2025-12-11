@@ -13,12 +13,13 @@ public class EventManager : MonoBehaviour
     public Image displayedIcon;
     public int dayLenght;
     public static EventManager InstanceEvent;
+    public GameObject dieParticles;
 
     private void Awake()
     {
         InstanceEvent = this;
     }
-    void Start() 
+    void Start() //start all coroutines and the first day
     {
         StartCoroutine(TriggerEventDayPast());
         StartCoroutine(UpdateDayUi());
@@ -33,13 +34,13 @@ public class EventManager : MonoBehaviour
 
 
 
-    IEnumerator TriggerEventDayPast()
+    IEnumerator TriggerEventDayPast() //check for end of day
     {
         float timer = 0f;
 
         while (true)
         {
-            if (!paused)
+            if (!paused) //check for pause
             {
                 timer += Time.deltaTime;
 
@@ -53,7 +54,7 @@ public class EventManager : MonoBehaviour
             yield return null;
         }
     }
-    IEnumerator UpdateDayUi()
+    IEnumerator UpdateDayUi() //changes ui each 1/4 of the day
     {
         float timer = 0f;
         int dayStep = 0;
@@ -70,7 +71,6 @@ public class EventManager : MonoBehaviour
                 displayedIcon.sprite = dayIcons[dayStep];
                 if (timer >= (dayLenght/4))
                 {
-                    //EndOfDay?.Invoke(); Why??
                     timer = 0f;
                     dayStep ++;
                 }

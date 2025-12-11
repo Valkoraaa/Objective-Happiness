@@ -6,11 +6,6 @@ using UnityEngine.EventSystems;
 
 public class BuildingTerrain : MonoBehaviour
 {
-    /*public GameObject school;
-    public GameObject farm;
-    public GameObject museum;
-    public GameObject library;
-    public GameObject house;*/
     private GameObject choosenBuilding;
     private bool wantsToBuild = false;
     private GameManager gm;
@@ -37,7 +32,7 @@ public class BuildingTerrain : MonoBehaviour
             }
             escapeInfo.SetActive(false);
         }
-        if (Input.GetMouseButtonDown(0)) //v�rifie si le joueur clique sur un objet ayant le tag constructible
+        if (Input.GetMouseButtonDown(0))
         {
             if (EventSystem.current.IsPointerOverGameObject())
                 return;
@@ -46,7 +41,6 @@ public class BuildingTerrain : MonoBehaviour
 
             if (Physics.Raycast(ray, out hit))
             {
-                // V�rifie le tag de l�objet touch�
                 if (hit.collider.CompareTag("constructible") && wantsToBuild)
                 {
                     Debug.Log("check");
@@ -112,7 +106,7 @@ public class BuildingTerrain : MonoBehaviour
         }
     }
 
-    public void ChooseBuilding(GameObject building)
+    public void ChooseBuilding(GameObject building) //select the building the player clicked on
     {
         choosenBuilding = building;
         wantsToBuild = true;
@@ -120,7 +114,7 @@ public class BuildingTerrain : MonoBehaviour
         gm.audioSource.PlayOneShot(gm.clickSound);
     }
 
-    private IEnumerator Build(RaycastHit hit)
+    private IEnumerator Build(RaycastHit hit) //build the building
     {
         gm.audioSource.PlayOneShot(gm.buildSound);
         Instantiate(succedParticle, new Vector3(hit.collider.transform.position.x, hit.collider.transform.position.y + 1, hit.collider.transform.position.z - 1f), Quaternion.identity);

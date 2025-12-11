@@ -74,7 +74,7 @@ public class Character : MonoBehaviour
 
             StartCoroutine(GoHouse());
         }
-        yield return new WaitForSeconds(2.5f); //------- to adjust : 1/4 of daylenght
+        yield return new WaitForSeconds(4f); //------- to adjust : 1/4 of daylenght
         if (gm.ressources[2] > 0)
             gm.ressources[2] -= foodAmount;
         else
@@ -90,6 +90,16 @@ public class Character : MonoBehaviour
         Instantiate(em.dieParticles, transform.position, Quaternion.identity);
         gm.ressources[3] -= 10;
         Destroy(gameObject);
+        int i = 0;
+        foreach (GameObject jobs in gm.jobs)
+        {
+            if (job == jobs)
+            {
+                gm.peopleAtWork[i] -= 1;
+                gm.peopleWorkingText[i].text = gm.peopleAtWork[i].ToString();
+            }
+            i++;
+        }
     }
 
     public IEnumerator GoWork()

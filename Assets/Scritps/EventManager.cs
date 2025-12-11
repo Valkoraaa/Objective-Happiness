@@ -14,6 +14,7 @@ public class EventManager : MonoBehaviour
     public int dayLenght;
     public static EventManager InstanceEvent;
     public GameObject dieParticles;
+    public Transform dayLight;
 
     private void Awake()
     {
@@ -43,7 +44,7 @@ public class EventManager : MonoBehaviour
             if (!paused) //check for pause
             {
                 timer += Time.deltaTime;
-
+                dayLight.rotation = Quaternion.Euler(-timer/dayLenght*360, 0f, 0f);
                 if (timer >= dayLenght)
                 {
                     EndOfDay?.Invoke();

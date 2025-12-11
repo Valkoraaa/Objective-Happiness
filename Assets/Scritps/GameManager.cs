@@ -24,7 +24,7 @@ public class GameManager : MonoBehaviour
     public int masonsNumber;
     private bool charaSelected = false;
     public SlidePannel sp;
-    private int[] peopleAtWork = {1,1,1,1}; // 0 = wood, 1 = rock, 2 = food, 3 - builders
+    public int[] peopleAtWork = {1,1,1,1}; // 0 = wood, 1 = rock, 2 = food, 3 - builders
     public static GameManager Instance;
     public Character changingChara;
     private int tilesFree = 69;
@@ -45,7 +45,7 @@ public class GameManager : MonoBehaviour
     public AudioClip failSound;
 
     [SerializeField] private TextMeshProUGUI[] ressourcesText; // 0 = wood, 1 = rock, 2 = food, 3 = population
-    [SerializeField] private TextMeshProUGUI[] peopleWorkingText; // 0 = wood, 1 = rock, 2 = food
+    [SerializeField] public TextMeshProUGUI[] peopleWorkingText; // 0 = wood, 1 = rock, 2 = food
     [SerializeField] private TextMeshProUGUI masonsText;
     
     public List<Character> masonNumber;
@@ -123,12 +123,6 @@ public class GameManager : MonoBehaviour
 
     public void ChangeJob(GameObject changeJob)
     {
-        changingChara.job = changeJob;
-        changingChara.hasSkin = false;
-        foreach (Transform child in changingChara.transform)
-        {
-            Destroy(child.gameObject);
-        }
         int i = 0;
         foreach (GameObject build in jobs)
         {
@@ -136,9 +130,19 @@ public class GameManager : MonoBehaviour
             {
                 peopleAtWork[i] += 1;
                 peopleWorkingText[i].text = peopleAtWork[i].ToString();
-                break;
+            }
+            if (build == changingChara.job)
+            {
+                peopleAtWork[i] -= 1;
+                peopleWorkingText[i].text = peopleAtWork[i].ToString();
             }
             i++;
+        }
+        changingChara.job = changeJob;
+        changingChara.hasSkin = false;
+        foreach (Transform child in changingChara.transform)
+        {
+            Destroy(child.gameObject);
         }
         GameObject newModel = Instantiate(skin[i], changingChara.transform);
         changingChara.hasSkin = true;

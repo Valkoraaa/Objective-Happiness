@@ -89,7 +89,6 @@ public class Character : MonoBehaviour
         // Character dies
         Instantiate(em.dieParticles, transform.position, Quaternion.identity);
         gm.ressources[3] -= 10;
-        Destroy(gameObject);
         int i = 0;
         foreach (GameObject jobs in gm.jobs)
         {
@@ -100,6 +99,7 @@ public class Character : MonoBehaviour
             }
             i++;
         }
+        Destroy(gameObject);
     }
 
     public IEnumerator GoWork()

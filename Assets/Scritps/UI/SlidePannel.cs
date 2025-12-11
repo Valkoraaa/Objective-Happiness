@@ -34,7 +34,7 @@ public class SlidePannel : MonoBehaviour
         }
     }
 
-    public void Move(bool getIn)
+    public void Move(bool getIn) //animation to get in or out of the screen
     {
         if (getIn && !hasBeenMoved && !moving)
         {

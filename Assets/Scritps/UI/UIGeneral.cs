@@ -6,18 +6,6 @@ using UnityEngine.SceneManagement;
 public class UIGeneral : MonoBehaviour
 {
     public Canvas pauseCanvas;
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
     public void ActivePauseCanvas()
     {
         pauseCanvas.gameObject.SetActive(!pauseCanvas.gameObject.activeSelf);

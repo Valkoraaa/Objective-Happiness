@@ -124,12 +124,14 @@ public class GameManager : MonoBehaviour
     public void ChangeJob(GameObject changeJob)
     {
         int i = 0;
+        int y = 0;
         foreach (GameObject build in jobs)
         {
             if (build == changeJob)
             {
                 peopleAtWork[i] += 1;
                 peopleWorkingText[i].text = peopleAtWork[i].ToString();
+                y = i;
             }
             if (build == changingChara.job)
             {
@@ -144,7 +146,7 @@ public class GameManager : MonoBehaviour
         {
             Destroy(child.gameObject);
         }
-        GameObject newModel = Instantiate(skin[i], changingChara.transform);
+        GameObject newModel = Instantiate(skin[y], changingChara.transform);
         changingChara.hasSkin = true;
     }
 
